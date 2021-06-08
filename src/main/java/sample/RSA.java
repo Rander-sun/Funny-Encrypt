@@ -1,4 +1,4 @@
-package com.company;
+package sample;
 import sun.misc.BASE64Decoder;
 
 import javax.crypto.BadPaddingException;

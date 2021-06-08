@@ -1,3 +1,5 @@
+package sample;
+
 import java.awt.Graphics2D;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;

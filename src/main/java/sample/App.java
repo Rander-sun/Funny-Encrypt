@@ -1,4 +1,4 @@
-package com.company;
+package sample;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

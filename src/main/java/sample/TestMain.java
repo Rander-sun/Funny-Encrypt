@@ -1,7 +1,7 @@
-package com.company;
+package sample;
 import java.util.Scanner;
 
-public class Main {
+public class TestMain {
     public static void main(String[] args) {
     Scanner in = new Scanner(System.in);
     App app = new App();
