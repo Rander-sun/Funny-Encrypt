@@ -1,10 +1,13 @@
+<<<<<<< Updated upstream:src/main/java/sample/App.java
 package sample;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+=======
 import javax.imageio.ImageIO;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+>>>>>>> Stashed changes:src/App.java
 import java.util.Base64;
 import java.util.Scanner;
 
