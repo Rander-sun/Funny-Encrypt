@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Random;
 import javax.imageio.ImageIO;
 
@@ -71,12 +72,11 @@ public class Util {
   }
 //此处code为密文或者密钥
   public static String LSBEncryption(Image image,String code){
-    String uPassword=" ";
+    String uPassword="";
     int a=0,r=0,g=0,b=0;//标明坐标
     //新增更改：向上取舍，原参数code.length()/4
     float num=((float)code.length())/4;
     int newNum=(int)Math.ceil(num);
-
     image.genCoordinate(image.getimage(), newNum);
     for(int i=0;i<code.length()-3;i=i+4){
       a=code.charAt(i);
@@ -96,17 +96,36 @@ public class Util {
 
   public static String LSBDecryption(Image image,String decode){
     String recode="";
-    decode=Util.encodeUnicode(decode);
-    System.out.println(decode);
+    decode=Util.Decode64(decode);
+    System.out.println("坐标解密"+decode);
     String[] passBuf=decode.split("\\s+");
     //System.out.println(passBuf);
     for(int i=0;i<passBuf.length-1;i+=2){
-      int x=Integer.parseInt(passBuf[i]);
-      int y=Integer.parseInt(passBuf[i+1]);
+      int x=Integer.parseInt(passBuf[i],16);
+      int y=Integer.parseInt(passBuf[i+1],16);
       int[] argb=image.getImagePixel(image.getimage(), x,y);
-      recode=recode+(char)argb[0]+(char)argb[1]+(char)argb[2]+(char)argb[3];
+      for(int j=0;j<4;j++){
+        if(argb[j]!=0)
+          recode+=(char)argb[j];
+      }
     }
     return recode;
   }
+  public static String Encode64(String code) {
+    byte[] bytes = code.getBytes();
 
+    //Base64 加密
+    String encoded = Base64.getEncoder().encodeToString(bytes);
+    //System.out.println("Base 64 加密后：" + encoded);
+
+    return encoded;
+  }
+  public static String Decode64(String encoded){
+    //Base64 解密
+    byte[] decoded = Base64.getDecoder().decode(encoded);
+
+    String decodeStr = new String(decoded);
+    //System.out.println("Base 64 解密后：" + decodeStr);
+    return decodeStr;
+  }
 }
