@@ -9,9 +9,9 @@ import javax.imageio.ImageIO;
 public class Test {
 
    public static void main(String[] args) throws IOException {
-     MyImage image=new MyImage("src/main/resources/ima/2.jpg");//original:"E://大学//OOP//大作业//Image encryption//ima//1.png"
-     Util.jpg2png(image.getimage(),"src/main/resources/ima/2.png");//original:"E://大学//OOP//大作业//Image encryption//ima//1.png"
-     image=new MyImage("src/main/resources/ima/2.png");//"E://大学//OOP//大作业//Image encryption//ima//1.png"
+     MyImage image=new MyImage("src/main/resources/ima/9.jpg");//original:"E://大学//OOP//大作业//Image encryption//ima//1.png"
+     Util.jpg2png(image.getimage(),"src/main/resources/ima/IMAGE.png");//original:"E://大学//OOP//大作业//Image encryption//ima//1.png"
+     image=new MyImage("src/main/resources/ima/IMAGE.png");//"E://大学//OOP//大作业//Image encryption//ima//1.png"
      Scanner in=new Scanner(System.in);
      System.out.println("Which mode do you want to choose?\n1.MessageEncryption by pic\n2.FileEncryption by pic");
      int flag=in.nextInt();

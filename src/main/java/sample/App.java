@@ -103,7 +103,7 @@ public class App {
         byte[] decode = Util.Hex2Byte(recode);
         String realCode=new String(decode,"utf-8");
         System.out.println(realCode);
-    /*
+
             //打开待解密文件
         int readLength;
         byte[] result;
@@ -125,6 +125,6 @@ public class App {
         outputStream.close();
         inputStream.close();
         System.out.println("Decrypt file success!");
-*/
+
     }
 }
