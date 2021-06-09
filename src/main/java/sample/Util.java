@@ -47,6 +47,7 @@ public class Util {
     return string.toString();
   }
 
+
   public static String encodeUnicode(String string){
     StringBuffer unicode = new StringBuffer();
     for (int i = 0; i < string.length(); i++) {

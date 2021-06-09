@@ -68,21 +68,27 @@ public class Main extends Application {
     // 设置宽高尺寸可调整，true:可以拖拽边缘调整窗口尺寸，false：不可调整
     stage.setResizable(true);
 
-
-
-    //使用tab切换界面，tab1是子豪，tab2是赵阳，tab3是罗晓彤
+    //使用tab切换界面，tab1是子豪，tab2是赵阳，tab3、4是罗晓彤
     TabPane tabPane=new TabPane();
     tabPane.getStyleClass().add("Menu");
     Tab tab1=new Tab("图像转换加密");
     tab1.getStyleClass().add("MenuItem");
-    Tab tab2=new Tab("图像隐写加密");
+    Tab tab2=new Tab("图像隐写加密信息");
     tab2.getStyleClass().add("MenuItem");
     Tab tab3=new Tab("视频加密");
     tab3.getStyleClass().add("MenuItem");
-    tabPane.getTabs().addAll(tab1,tab2,tab3);
+    Tab tab4=new Tab("图像隐写加密文件");
+    tab4.getStyleClass().add("MenuItem");
+    tabPane.getTabs().addAll(tab1,tab2,tab4,tab3);
     //给tab2传内容
     ImageTextEncrypt ite=new ImageTextEncrypt();
     tab2.setContent(ite.ImagePane());
+    //传给tab4
+    ImageFileEncryption imageFileEncryption=new ImageFileEncryption();
+    tab4.setContent(imageFileEncryption.ImagePane());
+    //传给tab3
+    VideoEncryptionPage videoEncryptionPage = new VideoEncryptionPage();
+    tab3.setContent(videoEncryptionPage.VideoPane());
 
     // 1、初始化一个场景
     Scene scene = new Scene(tabPane, 1400, 1000);
@@ -91,40 +97,8 @@ public class Main extends Application {
     stage.setScene(scene);
     // 3、打开窗口
     stage.show();
-//下面可以实现拖拽图片进入图片框
-    ite.getImg().setOnDragEntered(new EventHandler<DragEvent>() {
-      @Override
-      public void handle(DragEvent event) {
-        ite.getImg().setBorder(new Border(new BorderStroke(Paint.valueOf("#00ffff"),
-            BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(1))));
-      }
-    });
-    ite.getImg().setOnDragExited(new EventHandler<DragEvent>() {
-      @Override
-      public void handle(DragEvent event) {
-        ite.getImg().setBorder(null);
-      }
-    });
-    ite.getImg().setOnDragOver(new EventHandler<DragEvent>() {
-      @Override
-      public void handle(DragEvent event) {
-        event.acceptTransferModes(event.getTransferMode());
-      }
-    });
-    ite.getImg().setOnDragDropped(new EventHandler<DragEvent>() {
-      @Override
-      public void handle(DragEvent event) {
-        Dragboard db = event.getDragboard();
-        List<File> files= db.getFiles();
-        if(files.size()>0){
-          try{
-            ite.getIv().setImage(new Image(new FileInputStream(files.get(0))));
-          }catch (FileNotFoundException e){
-            e.printStackTrace();
-          }
-        }
-      }
-    });
+    dragImage(ite.getImg(), ite.getIv());
+    dragImage(imageFileEncryption.getFile(), imageFileEncryption.getIv());
   }
 
   public static void main( String[] args ){
@@ -132,4 +106,40 @@ public class Main extends Application {
     Application.launch(args);
   }
 
+  public static void dragImage(HBox hBox,ImageView imageView){
+    //下面可以实现拖拽图片进入图片框
+    hBox.setOnDragEntered(new EventHandler<DragEvent>() {
+      @Override
+      public void handle(DragEvent event) {
+        hBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#00ffff"),
+                BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(1))));
+      }
+    });
+    hBox.setOnDragExited(new EventHandler<DragEvent>() {
+      @Override
+      public void handle(DragEvent event) {
+        hBox.setBorder(null);
+      }
+    });
+    hBox.setOnDragOver(new EventHandler<DragEvent>() {
+      @Override
+      public void handle(DragEvent event) {
+        event.acceptTransferModes(event.getTransferMode());
+      }
+    });
+    hBox.setOnDragDropped(new EventHandler<DragEvent>() {
+      @Override
+      public void handle(DragEvent event) {
+        Dragboard db = event.getDragboard();
+        List<File> files= db.getFiles();
+        if(files.size()>0){
+          try{
+            imageView.setImage(new Image(new FileInputStream(files.get(0))));
+          }catch (FileNotFoundException e){
+            e.printStackTrace();
+          }
+        }
+      }
+    });
+  }
 }

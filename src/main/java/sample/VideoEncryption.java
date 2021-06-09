@@ -3,7 +3,7 @@ package sample;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-public class VideoEncryption {
+public class VideoEncryption{
     private File file;
 
     public File getNewFile() {
@@ -58,4 +58,5 @@ public class VideoEncryption {
             e.printStackTrace();
         }
     }
+
 }
