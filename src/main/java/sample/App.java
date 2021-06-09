@@ -18,7 +18,7 @@ public class App {
         src=in.nextLine();
         System.out.println("Please input your cleartext");
         code=in.nextLine();
-        System.out.println("Please input your new file name");
+        System.out.println("Please input your new file name");//DISCARD
         nName=in.nextLine();
         String encryptedName=nName+".enc";
         System.out.println("Generating keys...");

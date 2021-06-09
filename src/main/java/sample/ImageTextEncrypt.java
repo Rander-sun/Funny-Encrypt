@@ -81,11 +81,12 @@ public class ImageTextEncrypt {
     Button decryptBtn=new Button();
     decryptBtn.setText("解密");
     form.getChildren().addAll(tip1,textToEncrypt,tip2,password1,encryptBtn,separator,tip3,password2,tip4,password3,decryptBtn);
-    form.setSpacing(10);
+    form.setSpacing(30);
     an.setLeftAnchor(img,2.0);
     an.setTopAnchor(form,200.0);
     an.setRightAnchor(form,50.0);
     an.getChildren().addAll(img,form);
     return an;
   }
+
 }

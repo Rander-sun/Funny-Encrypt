@@ -67,6 +67,7 @@ public class Test {
      String uPassword = Util.LSBEncryption(image,code);
      ImageIO.write(image.getimage(), "png",  new File("D:\\javaTest\\2_.png"));
      uPassword=Util.decodeUnicode(uPassword);
+     //uPassword=Util.Encode64(uPassword);
      System.out.println("生成密码："+uPassword);
      return uPassword;
    }

@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Random;
 import javax.imageio.ImageIO;
 
@@ -44,6 +45,7 @@ public class Util {
     }
     return string.toString();
   }
+
 
   public static String encodeUnicode(String string){
     StringBuffer unicode = new StringBuffer();
