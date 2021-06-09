@@ -7,8 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import javax.imageio.ImageIO;
+import javafx.scene.image.Image;
 
-public class Image {
+public class MyImage {
   private BufferedImage image;
   public Map<Integer,Integer> coordinate;
   private ArrayList<Integer[]> RGB=new ArrayList<Integer[]>();
@@ -19,8 +20,8 @@ public class Image {
   public void setimage(BufferedImage image) {
     this.image = image;
   }
-
-  public Image(String imageAddress){
+  public MyImage(){}
+  public MyImage(String imageAddress){
     File file = new File(imageAddress);
     try{
       image= ImageIO.read(file);

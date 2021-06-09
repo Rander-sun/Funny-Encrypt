@@ -4,7 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Scanner;
 
@@ -62,10 +61,10 @@ public class App {
         System.out.println("Decryption Success!");
     }
     //PackItUp
-    public static String encryptFile(Image image,String filePath,String password) throws IOException {
+    public static String encryptFile(MyImage image,String filePath,String password) throws IOException {
         int readLength;//读入长度
         byte result[];//加密结果
-        filePath="D:\\javaTest\\lays.txt.txt";
+        filePath="src/main/resources/lays.txt.txt";//D:\javaTest\lays.txt.txt
         File file = new File(filePath);
         System.out.println(file.getAbsolutePath());
         String newFile=file.getAbsolutePath()+"_enc";
@@ -88,16 +87,16 @@ public class App {
         //关闭对应输出流，然后开始图像加密：对密钥加密(处理后加密）
         byte[] passwordInByte=password.getBytes("utf-8");
         String newPWD=Util.Byte2Hex(passwordInByte);
-        System.out.println("This is original"+newPWD);
+        System.out.println("This is original:"+newPWD);
         String keyCoordinate=Util.LSBEncryption(image,newPWD);
         System.out.println(keyCoordinate);
-        ImageIO.write(image.getimage(), "png",  new File("D:\\javaTest\\2_.png"));//mode 2
-        keyCoordinate=Util.decodeUnicode(keyCoordinate);
+        ImageIO.write(image.getimage(), "png",  new File("src/main/resources/2_.png"));//mode 2//D:\\javaTest\\2_.png
+        keyCoordinate=Util.Encode64(keyCoordinate);
         return keyCoordinate;
     }
 
-    public static void decryptFile(Image image,String filePath,String PWD) throws IOException {
-        filePath="D:\\javaTest\\lays.txt.txt_enc";
+    public static void decryptFile(MyImage image,String filePath,String PWD) throws IOException {
+        filePath="src/main/resources/lays.txt.txt_enc";//D:\\javaTest\\lays.txt.txt_enc
         //先获取原密码byte[]形式
         String recode=Util.LSBDecryption(image,PWD);
         System.out.println("This is after :"+recode);

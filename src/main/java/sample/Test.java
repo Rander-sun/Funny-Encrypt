@@ -1,19 +1,17 @@
 package sample;
 
-import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Random;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 public class Test {
 
    public static void main(String[] args) throws IOException {
-     Image image=new Image("src/main/resources/ima/2.jpg");//original:"E://大学//OOP//大作业//Image encryption//ima//1.png"
+     MyImage image=new MyImage("src/main/resources/ima/2.jpg");//original:"E://大学//OOP//大作业//Image encryption//ima//1.png"
      Util.jpg2png(image.getimage(),"src/main/resources/ima/2.png");//original:"E://大学//OOP//大作业//Image encryption//ima//1.png"
-     image=new Image("src/main/resources/ima/2.png");//"E://大学//OOP//大作业//Image encryption//ima//1.png"
+     image=new MyImage("src/main/resources/ima/2.png");//"E://大学//OOP//大作业//Image encryption//ima//1.png"
      Scanner in=new Scanner(System.in);
      System.out.println("Which mode do you want to choose?\n1.MessageEncryption by pic\n2.FileEncryption by pic");
      int flag=in.nextInt();
@@ -26,7 +24,7 @@ public class Test {
          String password = in.nextLine();
          Test.encrypt(image,content,password);
          //解密
-         Image image1=new Image("src/main/resources/ima/2.png");
+         MyImage image1=new MyImage("src/main/resources/ima/IMAGE.png");
          System.out.println("请输入设置好的密码");
          String password_=in.nextLine();
          System.out.println("请输入生成的密码");
@@ -45,7 +43,7 @@ public class Test {
          System.out.println("请输入解密图片路径");
          String filePath2=in.nextLine();
          //模拟解密文件路径
-         Image image2=new Image("D:\\javaTest\\2_.png");
+         MyImage image2=new MyImage("src/main/resources/2_.png");//D:\\javaTest\\2_.png
          System.out.println("请输入生成的密码");
          String uPassword2=in.nextLine();
          //先读出密钥并解密
@@ -57,7 +55,7 @@ public class Test {
 
    }
 
-   public static String encrypt(Image image,String content,String password) throws IOException {
+   public static String encrypt(MyImage image,String content,String password) throws IOException {
 
      System.out.println("加密前：" + content);
      byte[] encode = AesEncrypt.aesEncrypt(content, password);//加密后密文
@@ -67,14 +65,14 @@ public class Test {
      String uPassword = Util.LSBEncryption(image,code);
      System.out.println("坐标"+uPassword);
 
-     ImageIO.write(image.getimage(), "png",  new File("src/main/resources/ima/2.png"));
+     ImageIO.write(image.getimage(), "png",  new File("src/main/resources/ima/IMAGE.png"));
      //uPassword=Util.decodeUnicode(uPassword);
      uPassword=Util.Encode64(uPassword);
      System.out.println("生成密码："+uPassword);
      return uPassword;
    }
 
-   public static String deCode(Image image1,String uPassword,String password)
+   public static String deCode(MyImage image1,String uPassword,String password)
        throws UnsupportedEncodingException {
      String recode=Util.LSBDecryption(image1,uPassword);
      System.out.println("密文"+recode);

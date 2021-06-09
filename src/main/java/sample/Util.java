@@ -5,8 +5,9 @@ import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.Random;
 import javax.imageio.ImageIO;
 
@@ -70,19 +71,54 @@ public class Util {
     File file = new File(outFile);
     ImageIO.write(bufferedImage, "png", file);
   }
+
+  public static BufferedImage jpg2png(BufferedImage image) throws IOException {
+
+    int width= image.getWidth();
+    int height= image.getHeight();
+    BufferedImage bufferedImage = new BufferedImage(width, height, image.getType());
+    Graphics2D gr = bufferedImage.createGraphics();
+    bufferedImage = gr.getDeviceConfiguration().createCompatibleImage(width, height, Transparency.TRANSLUCENT);
+
+    gr = bufferedImage.createGraphics();
+    gr.drawImage(image.getScaledInstance(width, height, image.SCALE_DEFAULT), 0, 0, width, height, null);
+    gr.dispose();
+    return bufferedImage;
+  }
 //此处code为密文或者密钥
-  public static String LSBEncryption(Image image,String code){
+  public static String LSBEncryption(MyImage image,String code){
     String uPassword="";
     int a=0,r=0,g=0,b=0;//标明坐标
     //新增更改：向上取舍，原参数code.length()/4
     float num=((float)code.length())/4;
     int newNum=(int)Math.ceil(num);
     image.genCoordinate(image.getimage(), newNum);
-    for(int i=0;i<code.length()-3;i=i+4){
-      a=code.charAt(i);
-      r=code.charAt(i+1);
-      g=code.charAt(i+2);
-      b=code.charAt(i+3);
+    String aCode="";
+    String rCode="";
+    String gCode="";
+    String bCode="";
+    for(int i=1;i<=code.length();i++){
+      int flag=i%4;
+      switch (flag){
+        case 1:
+          aCode+=code.charAt(i-1);
+          break;
+        case 2:
+          rCode+=code.charAt(i-1);
+          break;
+        case 3:
+          gCode+=code.charAt(i-1);
+          break;
+        case 0:
+          bCode+=code.charAt(i-1);
+          break;
+      }
+    }
+    for(int i=0;i<newNum;i++){
+      a=i<aCode.length()?aCode.charAt(i):0;
+      r=i<rCode.length()?rCode.charAt(i):0;
+      g=i<gCode.length()?gCode.charAt(i):0;
+      b=i<bCode.length()?bCode.charAt(i):0;
       Integer[] keys = image.coordinate.keySet().toArray(new Integer[0]);
       Random random = new Random();
       Integer x = keys[random.nextInt(keys.length)];
@@ -94,15 +130,22 @@ public class Util {
     return uPassword;//返回对应信息坐标
   }
 
-  public static String LSBDecryption(Image image,String decode){
+  public static String LSBDecryption(MyImage image,String decode){
     String recode="";
     decode=Util.Decode64(decode);
     System.out.println("坐标解密"+decode);
     String[] passBuf=decode.split("\\s+");
     //System.out.println(passBuf);
-    for(int i=0;i<passBuf.length-1;i+=2){
-      int x=Integer.parseInt(passBuf[i],16);
-      int y=Integer.parseInt(passBuf[i+1],16);
+    List<String> xBuf=new ArrayList<>();
+    List<String> yBuf=new ArrayList<>();
+    for(int i=0;i< passBuf.length;i++){
+      int flag=i%2;
+      if(flag==0) xBuf.add(passBuf[i]);
+      else yBuf.add(passBuf[i]);
+    }
+    for(int i=0;i<passBuf.length/2;i++){
+      int x=Integer.parseInt(xBuf.get(i),16);
+      int y=Integer.parseInt(yBuf.get(i),16);
       int[] argb=image.getImagePixel(image.getimage(), x,y);
       for(int j=0;j<4;j++){
         if(argb[j]!=0)

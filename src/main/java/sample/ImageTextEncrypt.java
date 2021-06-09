@@ -1,5 +1,8 @@
 package sample;
 
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Separator;
@@ -71,6 +74,17 @@ public class ImageTextEncrypt {
     PasswordField password1=new PasswordField();
     Button encryptBtn=new Button();
     encryptBtn.setText("加密");
+
+    encryptBtn.setOnAction(event -> {
+      MyImage image=new MyImage();
+      image.setimage(SwingFXUtils.fromFXImage(iv.getImage(),null));
+      String message=ImageTextController.btnEncode(textToEncrypt.getText(), password1.getText(),image);
+      Alert alert = new Alert(AlertType.INFORMATION);
+      alert.setTitle("加密结果");
+      alert.setContentText(message);
+      alert.showAndWait();
+    });
+
     Separator separator=new Separator();
     Text tip3 = new Text();
     tip3.setText("请输入设置的密码");
@@ -80,6 +94,17 @@ public class ImageTextEncrypt {
     PasswordField password3=new PasswordField();
     Button decryptBtn=new Button();
     decryptBtn.setText("解密");
+
+    decryptBtn.setOnAction(event -> {
+      MyImage image=new MyImage();
+      image.setimage(SwingFXUtils.fromFXImage(iv.getImage(),null));
+      String message=ImageTextController.btnDecode(password2.getText(),password3.getText(),image);
+      Alert alert = new Alert(AlertType.INFORMATION);
+      alert.setTitle("解密结果");
+      alert.setContentText(message);
+      alert.showAndWait();
+    });
+
     form.getChildren().addAll(tip1,textToEncrypt,tip2,password1,encryptBtn,separator,tip3,password2,tip4,password3,decryptBtn);
     form.setSpacing(10);
     an.setLeftAnchor(img,2.0);
