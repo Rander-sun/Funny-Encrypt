@@ -44,7 +44,7 @@ public class Image {
   public String  setImagePixel(BufferedImage image,int a,int r,int g,int b,int x,int y){
     int p=(a<<24)|(r<<16)|(g<<8)|b;
     image.setRGB(x,y,p);
-    return String.format("%04d",x)+" "+String.format("%04d",y)+" ";
+    return String.format("%03x",x)+" "+String.format("%03x",y)+" ";
   }
   public void genCoordinate(BufferedImage image,int n){
     int width = image.getWidth();
@@ -53,8 +53,8 @@ public class Image {
     Random random=new Random();
     Map<Integer,Integer> coo=new HashMap<>();
     while(coo.size()<n){
-      x=random.nextInt(width);
-      y=random.nextInt(height);
+      x=random.nextInt(width-1)+1;
+      y=random.nextInt(height-1)+1;
       coo.put(x,y);
     }
     this.coordinate=new HashMap<>(coo);

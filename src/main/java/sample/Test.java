@@ -11,9 +11,9 @@ import javax.imageio.ImageIO;
 public class Test {
 
    public static void main(String[] args) throws IOException {
-     Image image=new Image("D:\\javaTest\\图像.jpg");//original:"E://大学//OOP//大作业//Image encryption//ima//1.png"
-     Util.jpg2png(image.getimage(),"D:\\javaTest\\1.png");//original:"E://大学//OOP//大作业//Image encryption//ima//1.png"
-     image=new Image("D:\\javaTest\\1.png");//"E://大学//OOP//大作业//Image encryption//ima//1.png"
+     Image image=new Image("src/main/resources/ima/2.jpg");//original:"E://大学//OOP//大作业//Image encryption//ima//1.png"
+     Util.jpg2png(image.getimage(),"src/main/resources/ima/2.png");//original:"E://大学//OOP//大作业//Image encryption//ima//1.png"
+     image=new Image("src/main/resources/ima/2.png");//"E://大学//OOP//大作业//Image encryption//ima//1.png"
      Scanner in=new Scanner(System.in);
      System.out.println("Which mode do you want to choose?\n1.MessageEncryption by pic\n2.FileEncryption by pic");
      int flag=in.nextInt();
@@ -26,7 +26,7 @@ public class Test {
          String password = in.nextLine();
          Test.encrypt(image,content,password);
          //解密
-         Image image1=new Image("D:\\javaTest\\2_.png");
+         Image image1=new Image("src/main/resources/ima/2.png");
          System.out.println("请输入设置好的密码");
          String password_=in.nextLine();
          System.out.println("请输入生成的密码");
@@ -63,11 +63,13 @@ public class Test {
      byte[] encode = AesEncrypt.aesEncrypt(content, password);//加密后密文
 
      String code = Util.Byte2Hex(encode);
-     //System.out.println("密文字符串：" + code);
+     System.out.println("密文字符串：" + code);
      String uPassword = Util.LSBEncryption(image,code);
-     ImageIO.write(image.getimage(), "png",  new File("D:\\javaTest\\2_.png"));
-     uPassword=Util.decodeUnicode(uPassword);
-     //uPassword=Util.Encode64(uPassword);
+     System.out.println("坐标"+uPassword);
+
+     ImageIO.write(image.getimage(), "png",  new File("src/main/resources/ima/2.png"));
+     //uPassword=Util.decodeUnicode(uPassword);
+     uPassword=Util.Encode64(uPassword);
      System.out.println("生成密码："+uPassword);
      return uPassword;
    }
@@ -75,6 +77,7 @@ public class Test {
    public static String deCode(Image image1,String uPassword,String password)
        throws UnsupportedEncodingException {
      String recode=Util.LSBDecryption(image1,uPassword);
+     System.out.println("密文"+recode);
      byte[] decode = Util.Hex2Byte(recode);
      byte[] decryptResult = AesEncrypt.decrypt(decode, password);
      return new String(decryptResult, "UTF-8");
