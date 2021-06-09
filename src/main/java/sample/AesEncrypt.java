@@ -46,7 +46,10 @@ public class AesEncrypt {
     public static  byte[] aesEncrypt(byte[] content,String password){
       try {
         KeyGenerator kgen = KeyGenerator.getInstance("AES");
-        kgen.init(128, new SecureRandom(password.getBytes()));
+
+        SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG") ;
+        secureRandom.setSeed(password.getBytes("utf-8"));
+        kgen.init(128,secureRandom);
         SecretKey secretKey = kgen.generateKey();
         byte[] enCodeFormat = secretKey.getEncoded();
         SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
@@ -64,6 +67,8 @@ public class AesEncrypt {
       } catch (IllegalBlockSizeException e) {
         e.printStackTrace();
       } catch (BadPaddingException e) {
+        e.printStackTrace();
+      } catch (UnsupportedEncodingException e) {
         e.printStackTrace();
       }
       return null;

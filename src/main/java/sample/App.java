@@ -65,7 +65,9 @@ public class App {
     public static String encryptFile(Image image,String filePath,String password) throws IOException {
         int readLength;//读入长度
         byte result[];//加密结果
+        filePath="D:\\javaTest\\lays.txt.txt";
         File file = new File(filePath);
+        System.out.println(file.getAbsolutePath());
         String newFile=file.getAbsolutePath()+"_enc";
         FileInputStream inputStream =new FileInputStream(file);
         FileOutputStream outputStream = new FileOutputStream(newFile);
@@ -84,25 +86,33 @@ public class App {
         outputStream.close();
         inputStream.close();
         //关闭对应输出流，然后开始图像加密：对密钥加密(处理后加密）
-        byte[] passwordInByte=password.getBytes(StandardCharsets.UTF_8);
+        byte[] passwordInByte=password.getBytes("utf-8");
         String newPWD=Util.Byte2Hex(passwordInByte);
+        System.out.println("This is original"+newPWD);
         String keyCoordinate=Util.LSBEncryption(image,newPWD);
-        ImageIO.write(image.getimage(), "png",  new File("E://大学//OOP//大作业//Image encryption//ima//2_.png"));//mode 2
+        System.out.println(keyCoordinate);
+        ImageIO.write(image.getimage(), "png",  new File("D:\\javaTest\\2_.png"));//mode 2
         keyCoordinate=Util.decodeUnicode(keyCoordinate);
         return keyCoordinate;
     }
 
     public static void decryptFile(Image image,String filePath,String PWD) throws IOException {
+        filePath="D:\\javaTest\\lays.txt.txt_enc";
         //先获取原密码byte[]形式
         String recode=Util.LSBDecryption(image,PWD);
-        String realCode=Util.decodeUnicode(recode);
-        //打开待解密文件
+        System.out.println("This is after :"+recode);
+        byte[] decode = Util.Hex2Byte(recode);
+        String realCode=new String(decode,"utf-8");
+        System.out.println(realCode);
+    /*
+            //打开待解密文件
         int readLength;
         byte[] result;
         File file = new File(filePath);
         String newFile=file.getAbsolutePath()+"_denc";
+        File nFile=new File(newFile);
         FileInputStream inputStream =new FileInputStream(file);
-        FileOutputStream outputStream = new FileOutputStream(newFile);
+        FileOutputStream outputStream = new FileOutputStream(nFile);
         int fileSize= (int) file.length();//提前说明输入大小
         byte datain[]=new byte[fileSize+1];//+1 in case anything happens
         if((readLength=inputStream.read(datain,0,fileSize))!=-1){
@@ -116,5 +126,6 @@ public class App {
         outputStream.close();
         inputStream.close();
         System.out.println("Decrypt file success!");
+*/
     }
 }
