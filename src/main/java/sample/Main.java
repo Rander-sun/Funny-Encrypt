@@ -83,6 +83,9 @@ public class Main extends Application {
     Tab tab4=new Tab("图像隐写加密文件");
     tab4.getStyleClass().add("MenuItem");
     tabPane.getTabs().addAll(tab1,tab2,tab4,tab3);
+    //给tab1传内容
+    PicEncryption picEncryption=new PicEncryption();
+    tab1.setContent(picEncryption.ImagePane());
     //给tab2传内容
     ImageTextEncrypt ite=new ImageTextEncrypt();
     tab2.setContent(ite.ImagePane());
