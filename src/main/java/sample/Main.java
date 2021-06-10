@@ -1,8 +1,10 @@
 package sample;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -39,6 +41,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 
 
 /**
@@ -97,8 +100,8 @@ public class Main extends Application {
     stage.setScene(scene);
     // 3、打开窗口
     stage.show();
-    dragImage(ite.getImg(), ite.getIv());
-    dragImage(imageFileEncryption.getFile(), imageFileEncryption.getIv());
+    dragImage(ite.getImg(), ite.getIv(),ite);
+    dragImage(imageFileEncryption.getFile(), imageFileEncryption.getIv(),ite);
   }
 
   public static void main( String[] args ){
@@ -106,7 +109,7 @@ public class Main extends Application {
     Application.launch(args);
   }
 
-  public static void dragImage(HBox hBox,ImageView imageView){
+  public static void dragImage(HBox hBox,ImageView imageView,ImageTextEncrypt ite){
     //下面可以实现拖拽图片进入图片框
     hBox.setOnDragEntered(new EventHandler<DragEvent>() {
       @Override
@@ -134,8 +137,11 @@ public class Main extends Application {
         List<File> files= db.getFiles();
         if(files.size()>0){
           try{
+            ite.setBufferedImageImage(ImageIO.read(files.get(0)));
             imageView.setImage(new Image(new FileInputStream(files.get(0))));
           }catch (FileNotFoundException e){
+            e.printStackTrace();
+          } catch (IOException e) {
             e.printStackTrace();
           }
         }

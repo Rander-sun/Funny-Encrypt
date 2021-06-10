@@ -18,7 +18,6 @@ public class ImageTextController {
   public static String btnDecode(String password,String uPassword, MyImage image){
     String content;
     try {
-      Util.jpg2png(image.getimage(),"src/main/resources/ima/IMAGE.png");
       image=new MyImage("src/main/resources/ima/IMAGE.png");
       content=Test.deCode(image,uPassword,password);
     } catch (IOException e) {
