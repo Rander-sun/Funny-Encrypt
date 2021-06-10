@@ -16,8 +16,11 @@ import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 
 
@@ -51,17 +54,27 @@ public class VideoEncryptionPage {
 
     private VBox videoFrame=new VBox();
     private VBox form =new VBox();
-    //private MediaView mv=new MediaView();
-    //private Video
 
-    public Pane VideoPane(){
+    private ImageView imageView= new ImageView();
+
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
+
+
+    public Pane VideoPane() throws FileNotFoundException {
         an.getStyleClass().add("ImagePane");
         //初始化学
         videoFrame.setPrefSize(1100,910);
         videoFrame.setStyle("-fx-background-color: #D3D3D3");
-        //mv.setPreserveRatio(true);
-        //mv.setFitWidth(1100);
-        //mv.setFitHeight(910);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(1100);
+        imageView.setFitHeight(910);
+        imageView.setImage(new Image(new FileInputStream(new File("src/main/resources/ima/9.jpg"))));
         Label label1=new Label();
         Label label2=new Label();
         Label label3=new Label();
@@ -74,6 +87,8 @@ public class VideoEncryptionPage {
         final Button openButton1 = new Button("浏览文件");
         //final Button openButton2 = new Button("选择解密文件");
 
+        Text tip0=new Text();
+        tip0.setText("操作提示：\n文件框内浏览或拖拽视频文件\n在密码框中输入自定的密码，点击加密\n在应用根目录获取加密好的ENC文件以及相关解密信息\n解密时，输入程序加密时输出的密钥与密文\n点击解密后\n在原文件目录下获取解密好的DEC文件\n(也可以加密其他文件)");
         Text fileTip =new Text();
         fileTip.setText("请选择需要加密的视频文件");
         Text codeTip= new Text();
@@ -102,7 +117,28 @@ public class VideoEncryptionPage {
         ChooseFile2(filePath2,openButton2,fileChooser);
         filesBox2.getChildren().addAll(filePath2,openButton2);
         Button confirmButton1=new Button("确认加密");
+
         Button confirmButton2=new Button("确认解密");
+
+        confirmButton1.setOnAction(event -> {
+            File file =new File(filePath.getText());
+            String nFileName=Util.changeEncName(file);
+            VideoEncryptionController.Enc(filePath.getText(),code.getText());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("加密结果");
+            alert.setHeaderText("Congratulations!Encryption Success!");
+            alert.setContentText("请前往源文件目录下获取加密文件"+nFileName+"和加密信息");
+        });
+
+        confirmButton2.setOnAction(event -> {
+            File file =new File(filePath2.getText());
+            String nFileName=Util.changeDecName(file);
+            VideoEncryptionController.Dec(filePath.getText(),decode.getText(),prikeyText.getText());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("加密结果");
+            alert.setHeaderText("Congratulations!Encryption Success!");
+            alert.setContentText("请前往源文件目录下获取解密文件:"+nFileName);
+        });
 
         form.getChildren().addAll(fileTip,filesBox1,codeTip, code,confirmButton1,separator,fileDecTip,filesBox2,codeDecText,decode,privateKey,prikeyText,confirmButton2);
         form.setSpacing(10);
