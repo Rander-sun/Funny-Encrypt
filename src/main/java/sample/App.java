@@ -64,7 +64,7 @@ public class App {
     public static String encryptFile(MyImage image,String filePath,String password) throws IOException {
         int readLength;//读入长度
         byte result[];//加密结果
-        filePath="src/main/resources/lays.txt.txt";//D:\javaTest\lays.txt.txt
+        filePath="D:\\javaTest\\lays.txt.txt";//D:\javaTest\lays.txt.txt
         File file = new File(filePath);
         System.out.println(file.getAbsolutePath());
         String newFile=file.getAbsolutePath()+"_enc";
@@ -74,6 +74,7 @@ public class App {
         byte datain[]=new byte[fileSize+1];//+1 in case anything happens
         if((readLength=inputStream.read(datain,0,fileSize))!=-1){
             result=AesEncrypt.aesEncrypt(datain,password);
+            System.out.println("Length1"+result.length);
         }
         else {
             System.out.println("Read File Error!Unable to Read Efficient bytes!");
@@ -89,32 +90,33 @@ public class App {
         String newPWD=Util.Byte2Hex(passwordInByte);
         System.out.println("This is original:"+newPWD);
         String keyCoordinate=Util.LSBEncryption(image,newPWD);
-        System.out.println(keyCoordinate);
+
         ImageIO.write(image.getimage(), "png",  new File("src/main/resources/2_.png"));//mode 2//D:\\javaTest\\2_.png
         keyCoordinate=Util.Encode64(keyCoordinate);
         return keyCoordinate;
     }
 
     public static void decryptFile(MyImage image,String filePath,String PWD) throws IOException {
-        filePath="src/main/resources/lays.txt.txt_enc";//D:\\javaTest\\lays.txt.txt_enc
+        filePath="D:\\javaTest\\lays.txt.txt_enc";//D:\\javaTest\\lays.txt.txt_enc
         //先获取原密码byte[]形式
         String recode=Util.LSBDecryption(image,PWD);
         System.out.println("This is after :"+recode);
         byte[] decode = Util.Hex2Byte(recode);
         String realCode=new String(decode,"utf-8");
         System.out.println(realCode);
-    /*
+
             //打开待解密文件
         int readLength;
         byte[] result;
         File file = new File(filePath);
-        String newFile=file.getAbsolutePath()+"_denc";
-        File nFile=new File(newFile);
+        //String newFile=file.getAbsolutePath()+"_denc";
+        File nFile=new File("D:\\javaTest\\laysDEC.txt.txt");
         FileInputStream inputStream =new FileInputStream(file);
         FileOutputStream outputStream = new FileOutputStream(nFile);
         int fileSize= (int) file.length();//提前说明输入大小
-        byte datain[]=new byte[fileSize+1];//+1 in case anything happens
+        byte datain[]=new byte[fileSize];//+1 in case anything happens
         if((readLength=inputStream.read(datain,0,fileSize))!=-1){
+            System.out.println("Length2"+datain.length);
             result=AesEncrypt.decrypt(datain,realCode);
         }
         else {
@@ -125,6 +127,6 @@ public class App {
         outputStream.close();
         inputStream.close();
         System.out.println("Decrypt file success!");
-*/
+
     }
 }

@@ -36,27 +36,6 @@ public class Util {
     return result;
   }
 
-  public static String decodeUnicode(String unicode){
-
-    StringBuffer string = new StringBuffer();
-    String[] hex = unicode.split("\\s+");
-    for (int i = 1; i < hex.length; i++) {
-      int data = Integer.parseInt(hex[i], 16);
-      string.append((char) data);
-    }
-    return string.toString();
-  }
-
-
-  public static String encodeUnicode(String string){
-    StringBuffer unicode = new StringBuffer();
-    for (int i = 0; i < string.length(); i++) {
-      char c = string.charAt(i);
-      unicode.append(Integer.toHexString(c)+" ");
-    }
-    return unicode.toString();
-  }
-
   public static void jpg2png(BufferedImage image,String outFile) throws IOException {
 
     int width= image.getWidth();
