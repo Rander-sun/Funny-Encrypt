@@ -10,8 +10,8 @@ public class Test {
 
    public static void main(String[] args) throws IOException {
      MyImage image=new MyImage("src/main/resources/ima/9.jpg");//original:"E://大学//OOP//大作业//Image encryption//ima//1.png"
-     Util.jpg2png(image.getimage(),"src/main/resources/ima/IMAGE.png");//original:"E://大学//OOP//大作业//Image encryption//ima//1.png"
-     image=new MyImage("src/main/resources/ima/IMAGE.png");//"E://大学//OOP//大作业//Image encryption//ima//1.png"
+     Util.jpg2png(image.getimage(),"IMAGE.png");//original:"E://大学//OOP//大作业//Image encryption//ima//1.png"
+     image=new MyImage("IMAGE.png");//"E://大学//OOP//大作业//Image encryption//ima//1.png"
      Scanner in=new Scanner(System.in);
      System.out.println("Which mode do you want to choose?\n1.MessageEncryption by pic\n2.FileEncryption by pic");
      int flag=in.nextInt();
@@ -24,7 +24,7 @@ public class Test {
          String password = in.nextLine();
          Test.encrypt(image,content,password);
          //解密
-         MyImage image1=new MyImage("src/main/resources/ima/IMAGE.png");
+         MyImage image1=new MyImage("IMAGE.png");
          System.out.println("请输入设置好的密码");
          String password_=in.nextLine();
          System.out.println("请输入生成的密码");
@@ -65,7 +65,7 @@ public class Test {
      String uPassword = Util.LSBEncryption(image,code);
      System.out.println("坐标"+uPassword);
 
-     ImageIO.write(image.getimage(), "png",  new File("src/main/resources/ima/IMAGE.png"));
+     ImageIO.write(image.getimage(), "png",  new File("IMAGE.png"));
      //uPassword=Util.decodeUnicode(uPassword);
      uPassword=Util.Encode64(uPassword);
      System.out.println("生成密码："+uPassword);
