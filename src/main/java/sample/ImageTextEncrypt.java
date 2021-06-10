@@ -144,7 +144,7 @@ public class ImageTextEncrypt {
     form.setSpacing(30);
     an.setLeftAnchor(img,2.0);
     an.setTopAnchor(form,200.0);
-    an.setRightAnchor(form,50.0);
+    an.setRightAnchor(form,20.0);
     an.getChildren().addAll(img,form);
     return an;
   }
