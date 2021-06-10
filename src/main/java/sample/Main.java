@@ -135,11 +135,13 @@ public class Main extends Application {
       public void handle(DragEvent event) {
         Dragboard db = event.getDragboard();
         List<File> files= db.getFiles();
+        Constants.IMAGENAME=files.get(0).getName();
         if(files.size()>0){
           try{
             switch(flag){
               case 2:
                 ite.setBufferedImageImage(ImageIO.read(files.get(0)));
+
                 break;
 
               case 4:

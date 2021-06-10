@@ -7,13 +7,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -78,13 +82,17 @@ public class ImageTextEncrypt {
     //img.getStyleClass().add("Image");
     img.setPrefSize(1100,910);
     img.setStyle("-fx-background-color: #D3D3D3");
+    Tooltip tooltip=new Tooltip();
+    tooltip.setText("请把图片拖拽到这里");
+    img.setAlignment(Pos.CENTER);
     iv.setPreserveRatio(true);
     iv.setFitWidth(1100);
     iv.setFitHeight(910);
-    img.getChildren().add(iv);
-
+    img.getChildren().addAll(iv);
 
     form.getStyleClass().add("RightForm");
+    Text tip0=new Text();
+    tip0.setText("操作提示：\n将图片拖入左侧灰色框内\n在文本框内输入需要加密的文字\n在密码框中输入自定的密码，点击加密\n点击弹窗点击ctrl+c复制密码\n在应用根目录获取加密好的图片\n解密时，输入自定的密码和程序输出的密码");
     Text tip1 = new Text();
     tip1.setText("请输入需要加密的文字");
     TextArea textToEncrypt=new TextArea();
@@ -98,7 +106,7 @@ public class ImageTextEncrypt {
       MyImage image=new MyImage();
       image.setimage(bufferedImage);
       String message=ImageTextController.btnEncode(textToEncrypt.getText(), password1.getText(),image);
-      File file=new File("src/main/resources/ima/IMAGE.png");
+      File file=new File(Constants.IMAGENAME);
       try {
         bufferedImage= ImageIO.read(file);
         iv.setImage(new Image(new FileInputStream(file)));
@@ -108,6 +116,7 @@ public class ImageTextEncrypt {
       Alert alert = new Alert(AlertType.NONE);
       alert.setTitle("加密结果");
       alert.setContentText(message);
+      alert.getDialogPane().getButtonTypes().add(new ButtonType("确认", ButtonBar.ButtonData.OK_DONE));
       alert.showAndWait();
     });
 
@@ -125,13 +134,13 @@ public class ImageTextEncrypt {
       MyImage image=new MyImage();
       image.setimage(bufferedImage);
       String message=ImageTextController.btnDecode(password2.getText(),password3.getText(),image);
-      Alert alert = new Alert(AlertType.INFORMATION);
+      Alert alert = new Alert(AlertType.NONE);
       alert.setTitle("解密结果");
       alert.setContentText(message);
+      alert.getDialogPane().getButtonTypes().add(new ButtonType("确认", ButtonBar.ButtonData.OK_DONE));
       alert.showAndWait();
     });
-
-    form.getChildren().addAll(tip1,textToEncrypt,tip2,password1,encryptBtn,separator,tip3,password2,tip4,password3,decryptBtn);
+    form.getChildren().addAll(tip0,tip1,textToEncrypt,tip2,password1,encryptBtn,separator,tip3,password2,tip4,password3,decryptBtn);
     form.setSpacing(30);
     an.setLeftAnchor(img,2.0);
     an.setTopAnchor(form,200.0);
