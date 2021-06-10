@@ -1,5 +1,7 @@
 package sample;
 
+import com.jfoenix.controls.JFXAlert;
+import com.jfoenix.controls.JFXSnackbar;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -103,11 +105,10 @@ public class ImageTextEncrypt {
       } catch (IOException e) {
         e.printStackTrace();
       }
-      TextInputDialog dialog = new TextInputDialog();
-      dialog.setTitle("加密结果");
-      dialog.setContentText(message);
-      dialog.setResult(message);
-      dialog.showAndWait();
+      Alert alert = new Alert(AlertType.NONE);
+      alert.setTitle("加密结果");
+      alert.setContentText(message);
+      alert.showAndWait();
     });
 
     Separator separator=new Separator();
