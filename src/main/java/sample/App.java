@@ -66,8 +66,8 @@ public class App {
         byte result[];//加密结果
         filePath="D:\\javaTest\\lays.txt.txt";//D:\javaTest\lays.txt.txt
         File file = new File(filePath);
-        System.out.println(file.getAbsolutePath());
-        String newFile=file.getAbsolutePath()+"_enc";
+        String newFile=Util.changeEncName(file);
+        newFile=file.getParent()+newFile;
         FileInputStream inputStream =new FileInputStream(file);
         FileOutputStream outputStream = new FileOutputStream(newFile);
         int fileSize= (int) file.length();//提前说明输入大小
@@ -109,8 +109,9 @@ public class App {
         int readLength;
         byte[] result;
         File file = new File(filePath);
-        //String newFile=file.getAbsolutePath()+"_denc";
-        File nFile=new File("D:\\javaTest\\laysDEC.txt.txt");
+        String newFile=Util.changeDecName(file);
+        newFile=file.getName()+newFile;
+        File nFile=new File(newFile);
         FileInputStream inputStream =new FileInputStream(file);
         FileOutputStream outputStream = new FileOutputStream(nFile);
         int fileSize= (int) file.length();//提前说明输入大小

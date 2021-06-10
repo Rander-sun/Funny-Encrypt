@@ -100,8 +100,8 @@ public class Main extends Application {
     stage.setScene(scene);
     // 3、打开窗口
     stage.show();
-    dragImage(ite.getImg(), ite.getIv(),ite);
-    dragImage(imageFileEncryption.getFile(), imageFileEncryption.getIv(),ite);
+    dragImage(ite.getImg(), ite.getIv(),ite,2);
+    dragImage(imageFileEncryption.getFile(), imageFileEncryption.getIv(),ite,4);
   }
 
   public static void main( String[] args ){
@@ -109,7 +109,7 @@ public class Main extends Application {
     Application.launch(args);
   }
 
-  public static void dragImage(HBox hBox,ImageView imageView,ImageTextEncrypt ite){
+  public static void dragImage(HBox hBox,ImageView imageView,ImageTextEncrypt ite,int flag){
     //下面可以实现拖拽图片进入图片框
     hBox.setOnDragEntered(new EventHandler<DragEvent>() {
       @Override
@@ -137,7 +137,16 @@ public class Main extends Application {
         List<File> files= db.getFiles();
         if(files.size()>0){
           try{
-            ite.setBufferedImageImage(ImageIO.read(files.get(0)));
+            switch(flag){
+              case 2:
+                ite.setBufferedImageImage(ImageIO.read(files.get(0)));
+                break;
+
+              case 4:
+                break;
+
+              default:System.out.println("Wrong case!");
+            }
             imageView.setImage(new Image(new FileInputStream(files.get(0))));
           }catch (FileNotFoundException e){
             e.printStackTrace();

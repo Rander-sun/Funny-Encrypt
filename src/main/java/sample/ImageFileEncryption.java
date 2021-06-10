@@ -2,10 +2,11 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.Separator;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -18,15 +19,18 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.Logger;
 
 public class ImageFileEncryption {
     private AnchorPane an = new AnchorPane();
     private HBox file=new HBox();
-    private final Desktop desktop=Desktop.getDesktop();
+    private BufferedImage bufferedImage;
     public AnchorPane getAn() {
         return an;
     }
@@ -104,6 +108,48 @@ public class ImageFileEncryption {
         Button confirmButton1=new Button("确认加密");
         Button confirmButton2=new Button("确认解密");
 
+        //对应加密controller
+
+        confirmButton1.setOnAction(event->{
+            MyImage image=new MyImage();
+            image.setimage(bufferedImage);
+            File file=new File(filePath.getText());
+            String nFileName=Util.changeEncName(file);
+            //File imagefile=new File();
+            ImageFileController.encBtn(image,filePath.getText(),code.getText());
+            try {
+                bufferedImage= ImageIO.read(file);
+               // iv.setImage(new Image((new FileInputStream(imagefile))));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("加密结果");
+            alert.setHeaderText("Congratulations!Encryption Success!");
+            alert.setContentText("加密文件 "+nFileName+" \n对应密钥 "+nFileName+"\n已在目录 "+file.getParent()+"下");
+        });
+
+        confirmButton2.setOnAction(event->{
+            MyImage image=new MyImage();
+            image.setimage(bufferedImage);
+            File file=new File(filePath2.getText());
+            String nFileName=Util.changeDecName(file);
+            //String imagePath=image.get
+            //String newImage=Util.changeEncName(imagePath);
+            //File imagefile=new File(newImage);
+            ImageFileController.decBtn(image,filePath2.getText(),decode.getText());
+            try {
+                bufferedImage= ImageIO.read(file);
+                //iv.setImage(new Image((new FileInputStream(imagefile))));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("解密结果");
+            alert.setHeaderText("Congratulations!Decryption Success!");
+            alert.setContentText("解密文件 "+nFileName+" 已在目录 "+file.getParent()+"下");
+        });
+
         form.getChildren().addAll(fileTip,filesBox1,codeTip, code,confirmButton1,separator,fileDecTip,filesBox2,codeDecText,decode,confirmButton2);
 
 
@@ -113,6 +159,7 @@ public class ImageFileEncryption {
         an.setRightAnchor(form,50.0);
         an.getChildren().addAll(file,form);
         return an;
+
     }
     public static void ChooseFile(TextField textField, Button button, FileChooser fileChooser) {
         Stage fileStage = new Stage();

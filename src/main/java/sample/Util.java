@@ -151,4 +151,18 @@ public class Util {
     //System.out.println("Base 64 解密后：" + decodeStr);
     return decodeStr;
   }
+
+  public static String changeDecName(File file){
+    String ori=file.getName();
+    int position=ori.lastIndexOf(".");
+    String newName=ori.substring(0,position)+"DEC"+ori.substring(position);
+    return newName;
+  }
+
+  public static String changeEncName(File file){
+    String ori=file.getName();
+    int position=ori.lastIndexOf(".");
+    String newName=ori.substring(0,position)+"ENC"+ori.substring(position);
+    return newName;
+  }
 }
