@@ -80,6 +80,8 @@ public class ImageFileEncryption {
         final FileChooser fileChooser=new FileChooser();
         final Button openButton1 = new Button("浏览文件");
         //final Button openButton2 = new Button("选择解密文件");
+        Text tip0=new Text();
+        tip0.setText("操作提示：\n将图片拖入左侧灰色框内\n文件框内浏览或拖拽文件\n在密码框中输入自定的密码，点击加密\n点击弹窗点击ctrl+c可复制密码\n在应用根目录获取加密好的图片\n在原文件目录下获取加密好的ENC文件\n解密时，输入程序加密时输出的密钥");
 
         Text fileTip =new Text();
         fileTip.setText("请选择需要加密的文件");
@@ -115,18 +117,19 @@ public class ImageFileEncryption {
             image.setimage(bufferedImage);
             File file=new File(filePath.getText());
             String nFileName=Util.changeEncName(file);
-            //File imagefile=new File();
-            ImageFileController.encBtn(image,filePath.getText(),code.getText());
+            File imagefile=new File(Constants.IMAGENAME);
+            String msg=ImageFileController.encBtn(image,filePath.getText(),code.getText());
             try {
                 bufferedImage= ImageIO.read(file);
-               // iv.setImage(new Image((new FileInputStream(imagefile))));
+                iv.setImage(new Image((new FileInputStream(file))));
             } catch (IOException e) {
                 e.printStackTrace();
             }
             Alert alert=new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("加密结果");
             alert.setHeaderText("Congratulations!Encryption Success!");
-            alert.setContentText("加密文件 "+nFileName+" \n对应密钥 "+nFileName+"\n已在目录 "+file.getParent()+"下");
+            alert.setContentText(msg);
+            alert.getDialogPane().getButtonTypes().add(new ButtonType("复制密钥",ButtonBar.ButtonData.OK_DONE));
         });
 
         confirmButton2.setOnAction(event->{
@@ -134,13 +137,11 @@ public class ImageFileEncryption {
             image.setimage(bufferedImage);
             File file=new File(filePath2.getText());
             String nFileName=Util.changeDecName(file);
-            //String imagePath=image.get
-            //String newImage=Util.changeEncName(imagePath);
-            //File imagefile=new File(newImage);
+            File imagefile=new File(Constants.IMAGENAME);
             ImageFileController.decBtn(image,filePath2.getText(),decode.getText());
             try {
                 bufferedImage= ImageIO.read(file);
-                //iv.setImage(new Image((new FileInputStream(imagefile))));
+                iv.setImage(new Image((new FileInputStream(imagefile))));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -150,7 +151,7 @@ public class ImageFileEncryption {
             alert.setContentText("解密文件 "+nFileName+" 已在目录 "+file.getParent()+"下");
         });
 
-        form.getChildren().addAll(fileTip,filesBox1,codeTip, code,confirmButton1,separator,fileDecTip,filesBox2,codeDecText,decode,confirmButton2);
+        form.getChildren().addAll(tip0,fileTip,filesBox1,codeTip, code,confirmButton1,separator,fileDecTip,filesBox2,codeDecText,decode,confirmButton2);
 
 
         form.setSpacing(10);

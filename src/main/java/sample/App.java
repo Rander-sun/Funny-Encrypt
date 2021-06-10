@@ -9,17 +9,8 @@ import java.util.Scanner;
 
 public class App {
 
-    public static void encryptVideo(Scanner in){
-        String src;
-        String code;
-        String nName;
-        System.out.println("Please input file path for encryption");
-        src=in.nextLine();
-        System.out.println("Please input your cleartext");
-        code=in.nextLine();
-        System.out.println("Please input your new file name");//DISCARD
-        nName=in.nextLine();
-        String encryptedName=nName+".enc";
+    public static void encryptVideo(String src,String code){
+        String encryptedName=Util.changeEncName(new File(src));
         System.out.println("Generating keys...");
         RSA rsa = new RSA(code);
         byte[] tmpPrivateKey=rsa.getPrivateKey().getEncoded();
@@ -29,7 +20,7 @@ public class App {
         String encryptedText=rsa.getEncryptedText();
         System.out.println("Encryption handling...");
         VideoEncryption entool = new VideoEncryption(src,encryptedName,code,1);
-        String info = "Info For "+nName+".txt";
+        String info = "Info For "+encryptedName+".txt";
         String absPath= entool.getPackingPath();
         try{
         File infoFile = new File(absPath+"\\"+info);
@@ -42,22 +33,11 @@ public class App {
         System.out.println("Encryption Success!");
     }
     //DecMethods
-    public static void decryptVideo(Scanner in){
-        String src;
-        String encryptedCode;
-        String nName;
-        String privateKey;
-        System.out.println("Please input file path for decryption");
-        src=in.nextLine();
-        System.out.println("Please input your encrypted text");
-        encryptedCode=in.nextLine();
-        System.out.println("Please input your privateKey");
-        privateKey=in.nextLine();
-        System.out.println("Please input your new file name");
-        nName=in.nextLine();
+    public static void decryptVideo(String filePath,String encText,String priKey){
+        String nName=Util.changeDecName(new File(filePath));
         System.out.println("Decrypting...");
-        RSA rsa =new RSA(encryptedCode,privateKey);
-        VideoEncryption detool = new VideoEncryption(src,nName,rsa.getOriginText(),0);
+        RSA rsa =new RSA(encText,priKey);
+        VideoEncryption detool = new VideoEncryption(filePath,nName,rsa.getOriginText(),0);
         System.out.println("Decryption Success!");
     }
     //PackItUp
