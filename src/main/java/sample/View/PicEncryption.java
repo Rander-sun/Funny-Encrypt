@@ -31,7 +31,7 @@ import java.io.IOException;
 /**
  * 图片加密
  *
- * @author Hasee
+ * @author yzh
  * @date 2021/06/12
  */
 public class PicEncryption {

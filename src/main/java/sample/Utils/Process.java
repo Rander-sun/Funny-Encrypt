@@ -10,7 +10,7 @@ import java.util.HashMap;
 /**
  * 图片加密处理过程
  *
- * @author Hasee
+ * @author yzh
  * @date 2021/06/12
  */
 public class Process{

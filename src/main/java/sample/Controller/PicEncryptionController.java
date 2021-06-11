@@ -6,7 +6,7 @@ import sample.Utils.Process;
 /**
  * 图片加密控制器
  *
- * @author Hasee
+ * @author yzh
  * @date 2021/06/12
  */
 public class PicEncryptionController {
