@@ -180,7 +180,7 @@ public class ImageFileEncryption {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            new AlertBuilder(confirmButton2).setTitle(file.getParent()).setMessage("解密文件"+nFileName+"已在目录").setBtn("确认").create();
+            new AlertBuilder(confirmButton2).setLink(file.getParent()).setTitle("解密文件"+nFileName+"已在目录").setBtn("确认").create();
             //Alert alert=new Alert(Alert.AlertType.INFORMATION);
             //alert.setTitle("解密结果");
             //alert.setHeaderText("Congratulations!Decryption Success!");
