@@ -14,18 +14,18 @@ import java.io.*;
 import java.util.Base64;
 
 /**
- * 应用程序
+ * 封装对视频加密操作的
  *
- * @author Hasee
+ * @author lxt
  * @date 2021/06/12
  */
 public class App {
 
     /**
      * 加密视频
-     *
-     * @param src  src
-     * @param code 代码
+     * 读入待加密视频以及明文，对明文进行RSA加密后输出公钥、私钥，并用密文对视频文件进行加密处理，最后打包输出视频文件和加密信息txt
+     * @param src  源视频文件路径
+     * @param code 明文
      */
     public static void encryptVideo(String src,String code){
         String encryptedName= Util.changeEncName(new File(src));
@@ -53,11 +53,11 @@ public class App {
 
     /**
      * 解密视频
-     *
-     * @param filePath 文件路径
-     * @param encText  内附文本
-     * @param priKey   革命制度党关键
-     *///DecMethods
+     * 读入待解密视频、密文、私钥，先用私钥和RSA算法将密文解密为明文，再用明文解密视频文件，最后输出。
+     * @param filePath 待解密文件路径
+     * @param encText  密文
+     * @param priKey   私钥
+     */
     public static void decryptVideo(String filePath,String encText,String priKey){
         String nName=Util.changeDecName(new File(filePath));
         System.out.println("Decrypting...");
@@ -67,14 +67,14 @@ public class App {
     }
 
     /**
-     * 加密文件
-     *
-     * @param image    图像
+     * 图像隐写文件加密的封装函数
+     * 读入图像载体、待加密文件路径和密码，对文件进行加密操作，并将加密信息隐藏到图片像素内，最后输出加密的像素坐标值
+     * @param image    图像载体
      * @param filePath 文件路径
      * @param password 密码
-     * @return {@link String}
+     * @return {@link String} 加密后像素坐标值
      * @throws IOException ioexception
-     *///PackItUp
+     */
     public static String encryptFile(MyImage image, String filePath, String password) throws IOException {
         int readLength;//读入长度
         byte result[];//加密结果
@@ -113,10 +113,10 @@ public class App {
 
     /**
      * 解密文件
-     *
+     * 读入图像载体、待解密文件路径和加密后坐标值。解密坐标值后从图像中读取加密信息，并将该信息用于解密文件。
      * @param image    图像
      * @param filePath 文件路径
-     * @param PWD      松材线虫病
+     * @param PWD      密码
      * @throws IOException ioexception
      */
     public static void decryptFile(MyImage image,String filePath,String PWD) throws IOException {

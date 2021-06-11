@@ -16,7 +16,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * aes加密
  *
- * @author Hasee
+ * @author Hasee lxt
  * @date 2021/06/12
  */
 public class AesEncrypt {
@@ -57,11 +57,11 @@ public class AesEncrypt {
     }
 
   /**
-   * aes加密
-   *
-   * @param content  内容
-   * @param password 密码
-   * @return {@link byte[]}
+   * aes加密算法
+   * 用密钥加密字节型文件内容
+   * @param content  文件内容
+   * @param password 密钥
+   * @return {@link byte[]} 返回加密后的文件字节内容
    */
   public static  byte[] aesEncrypt(byte[] content,String password){
       try {
@@ -95,11 +95,11 @@ public class AesEncrypt {
     }
 
   /**
-   * 解密
-   *
-   * @param content  内容
-   * @param password 密码
-   * @return {@link byte[]}
+   * aes解密
+   * 用密钥解密字节型文件内容
+   * @param content  文件内容
+   * @param password 密钥
+   * @return {@link byte[]} 返回解密后的文件字节内容
    */
   public static byte[] decrypt(byte[] content, String password) {
       try {

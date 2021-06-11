@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 /**
  * 跑龙套
  *
- * @author Hasee
+ * @author Hasee lxt
  * @date 2021/06/12
  */
 public class Util {
@@ -186,8 +186,8 @@ public class Util {
 
   /**
    * encode64
-   *
-   * @param code 密码
+   * 对生成像素坐标值串用Base64加密
+   * @param code 坐标值
    * @return {@link String}
    */
   public static String Encode64(String code) {
@@ -202,8 +202,8 @@ public class Util {
 
   /**
    * decode64
-   *
-   * @param encoded 已加密密码
+   * 对生成坐标像素值串用Base64解密
+   * @param encoded 已加密坐标值
    * @return {@link String}
    */
   public static String Decode64(String encoded){
@@ -216,10 +216,10 @@ public class Util {
   }
 
   /**
-   * 改变dec名字
-   *
+   * 改变文件名DEC
+   * 在文件名中加上DEC标识，以标记解密后文件
    * @param file 文件
-   * @return {@link String}
+   * @return {@link String} 返回新加密文件名
    */
   public static String changeDecName(File file){
     String ori=file.getName();
@@ -229,10 +229,10 @@ public class Util {
   }
 
   /**
-   * 改变enc名字
-   *
+   * 改变文件名ENC
+   * 在文件名中加上ENC标识，以标记加密后文件
    * @param file 文件
-   * @return {@link String}
+   * @return {@link String} 返回新解密文件名
    */
   public static String changeEncName(File file){
     String ori=file.getName();

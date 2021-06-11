@@ -29,14 +29,14 @@ import java.io.FileNotFoundException;
 /**
  * 视频加密页面
  *
- * @author Hasee
+ * @author lxt
  * @date 2021/06/12
  */
 public class VideoEncryptionPage {
     private AnchorPane an = new AnchorPane();
 
     /**
-     * 得到一个
+     * 得到一个Pane
      *
      * @return {@link AnchorPane}
      */
@@ -45,9 +45,9 @@ public class VideoEncryptionPage {
     }
 
     /**
-     * 设置一个
+     * 设置一个Pane
      *
-     * @param an 一个
+     * @param an 一个Pane
      */
     public void setAn(AnchorPane an) {
         this.an = an;
@@ -64,9 +64,9 @@ public class VideoEncryptionPage {
     }
 
     /**
-     * 设置形式
+     * 设置文件栏
      *
-     * @param form 形式
+     * @param form 文件栏
      */
     public void setForm(VBox form) {
         this.form = form;
@@ -115,9 +115,9 @@ public class VideoEncryptionPage {
 
 
     /**
-     * 视频面板
-     *
-     * @return {@link Pane}
+     * 视频加密面板
+     * 组装视频加密相关输入、输出控件
+     * @return {@link Pane} 返回该面板
      * @throws FileNotFoundException 文件未发现异常
      */
     public Pane VideoPane() throws FileNotFoundException {
@@ -221,8 +221,8 @@ public class VideoEncryptionPage {
     }
 
     /**
-     * 选择file2
-     *
+     * 文件拖拽选择器
+     * 实现将文件拖拽到文件文本框，并显示绝对路径的功能
      * @param textField   文本字段
      * @param button      按钮
      * @param fileChooser 文件选择器

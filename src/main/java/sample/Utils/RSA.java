@@ -17,9 +17,9 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
- * rsa
- *
- * @author Hasee
+ * rsa算法加密工具
+ * 对待加密内容随机产生公钥、私钥，并用公钥加密，私钥解密
+ * @author lxt
  * @date 2021/06/12
  */
 public class RSA {
@@ -28,7 +28,7 @@ public class RSA {
     /**
      * 得到公钥
      *
-     * @return {@link PublicKey}
+     * @return {@link PublicKey} 返回公钥
      */
     public PublicKey getPublicKey() {
         return publicKey;
@@ -41,14 +41,14 @@ public class RSA {
     /**
      * 获得私钥
      *
-     * @return {@link PrivateKey}
+     * @return {@link PrivateKey} 返回私钥
      */
     public PrivateKey getPrivateKey() {
         return privateKey;
     }
 
     /**
-     * 得到源文本
+     * 得到原信息
      *
      * @return {@link String}
      */
@@ -57,7 +57,7 @@ public class RSA {
     }
 
     /**
-     * 得到加密文本
+     * 得到加密后信息
      *
      * @return {@link String}
      */
@@ -66,10 +66,10 @@ public class RSA {
     }
 
     /**
-     * rsa
-     *
-     * @param origin 起源
-     *///输入原文获取加密结果
+     * rsa加密构造器
+     * 输入原待加密信息，并产生私钥、公钥和加密后密文
+     * @param origin 原信息
+     */
     public RSA(String origin){
         this.originText=origin;
         try{
@@ -90,11 +90,11 @@ public class RSA {
     }
 
     /**
-     * rsa
-     *
-     * @param encrypted 加密
-     * @param pri       革命制度党
-     *///输入私钥和密文获取明文
+     * rsa解密构造器
+     * 输入密文和私钥，通过rsa算法对密文进行解密，产生原文
+     * @param encrypted 密文
+     * @param pri       私钥
+     */
     public RSA(String encrypted,String pri){
         this.encryptedText=encrypted;
         try{
@@ -120,7 +120,7 @@ public class RSA {
     }
 
     /**
-     * 获取密钥对
+     * 随机生成长度为512的RSA密钥对
      *
      * @throws NoSuchAlgorithmException 没有这样的算法异常
      */
@@ -151,9 +151,9 @@ public class RSA {
     }
 
     /**
-     * 解密文本
+     * 对密文进行分段解密
      *
-     * @param pk pk
+     * @param pk 私钥
      * @throws IllegalBlockSizeException    非法的块大小异常
      * @throws BadPaddingException          坏填充例外
      * @throws NoSuchPaddingException       没有这样的填充例外
@@ -185,10 +185,10 @@ public class RSA {
     }
 
     /**
-     * 字节字符串
+     * 字节数组转换为字符串
      *
-     * @param bytes 字节
-     * @return {@link String}
+     * @param bytes 字节数组
+     * @return {@link String} 对应字符串
      *///bytes to string with blank
     public String bytesToString(byte[] bytes){
         StringBuffer stringBuffer = new StringBuffer();
@@ -204,10 +204,10 @@ public class RSA {
     }
 
     /**
-     * 字符串字节
+     * 字符串转换为字节数组
      *
      * @param string 字符串
-     * @return {@link byte[]}
+     * @return {@link byte[]} 对应字节数组
      *///string to bytes without blank
     public byte[] stringToBytes(String string){
         String[] strings = string.split(" ");

@@ -5,13 +5,13 @@ import sample.Utils.App;
 /**
  * 视频加密控制器
  *
- * @author Hasee
+ * @author lxt
  * @date 2021/06/12
  */
 public class VideoEncryptionController {
 
     /**
-     * 内附
+     * 中转页面接口数据，调用解密方法
      *
      * @param filePath  文件路径
      * @param clearText 明文
@@ -21,11 +21,11 @@ public class VideoEncryptionController {
     }
 
     /**
-     * 12月
+     * 中转页面接口数据，调用加密方法
      *
      * @param filePath 文件路径
-     * @param encText  内附文本
-     * @param priKey   革命制度党关键
+     * @param encText  待解密内容
+     * @param priKey   私钥
      */
     public static void Dec(String filePath,String encText,String priKey){
         App.decryptVideo(filePath,encText,priKey);

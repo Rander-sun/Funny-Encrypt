@@ -35,7 +35,7 @@ import java.io.IOException;
 /**
  * 图像文件加密
  *
- * @author Hasee
+ * @author lxt
  * @date 2021/06/12
  */
 public class ImageFileEncryption {
@@ -63,7 +63,7 @@ public class ImageFileEncryption {
     private BufferedImage bufferedImage;
 
     /**
-     * 得到一个
+     * 得到一个Pane
      *
      * @return {@link AnchorPane}
      */
@@ -72,9 +72,9 @@ public class ImageFileEncryption {
     }
 
     /**
-     * 设置一个
+     * 设置一个Pane
      *
-     * @param an 一个
+     * @param an 一个Pane
      */
     public void setAn(AnchorPane an) {
         this.an = an;
@@ -90,16 +90,16 @@ public class ImageFileEncryption {
     }
 
     /**
-     * 设置文件
+     * 设置文件信息栏
      *
-     * @param file 文件
+     * @param file 文件信息栏
      */
     public void setFile(HBox file) {
         this.file = file;
     }
 
     /**
-     * 获得表单
+     * 获得VBox
      *
      * @return {@link VBox}
      */
@@ -108,7 +108,7 @@ public class ImageFileEncryption {
     }
 
     /**
-     * 设置形式
+     * 设置VBox
      *
      * @param form 形式
      */
@@ -117,7 +117,7 @@ public class ImageFileEncryption {
     }
 
     /**
-     * 获得第四
+     * 获得图像展示
      *
      * @return {@link ImageView}
      */
@@ -126,7 +126,7 @@ public class ImageFileEncryption {
     }
 
     /**
-     * 第四集
+     * 设置图像展示
      *
      * @param iv 4
      */
@@ -138,9 +138,9 @@ public class ImageFileEncryption {
     private ImageView iv = new ImageView();
 
     /**
-     * 图像面板
-     *
-     * @return {@link Pane}
+     * 图形面板
+     * 组装图像文件加密相关输入、输出控件
+     * @return {@link Pane} 返回本页面Pane
      */
     public Pane ImagePane(){
         an.getStyleClass().add("ImageFilePane");
@@ -262,9 +262,9 @@ public class ImageFileEncryption {
     }
 
     /**
-     * 选择文件
-     *
-     * @param textField   文本字段
+     * 文件拖拽选择器
+     * 实现将文件拖拽到文件文本框，并显示绝对路径的功能
+     * @param textField   文本框
      * @param button      按钮
      * @param fileChooser 文件选择器
      */
