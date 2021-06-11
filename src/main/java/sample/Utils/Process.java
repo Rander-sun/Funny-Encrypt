@@ -134,6 +134,48 @@ public class Process{
     }
 
     /**
+     * 行解密
+     *
+     * @param color 颜色通道
+     * @param key    加密参数
+     * @param i     第i行
+     * @param Width   图片宽
+     * @return double
+     */
+    public double rowDecrypt(int[][] color, double key, int i, int Width) {
+        ArrayFunctions af=new ArrayFunctions();
+        double[] logisticArray =new double[Width];
+        produceLogisticArray(key, logisticArray, Width);
+        HashMap<Double, Integer> m=new HashMap<Double, Integer>();
+        produceMap(m, logisticArray, Width);
+        double[] tempLogArr =new double[Width];
+        af.arr_copy(logisticArray, tempLogArr, Width);
+        int[] addressArray =new int[Width];
+        SelectSort(tempLogArr, Width, m, addressArray);
+        int[] temp =new int[Width];
+        for (int j = 0; j < Width; ++j) {
+            temp[j] = color[i][addressArray[j]];
+        }
+        System.arraycopy(temp, 0, color[i], 0, Width);
+        return logisticArray[Width - 1];
+    }
+
+    /**
+     * 解密全部行
+     *
+     * @param color 颜色通道
+     * @param key   加密参数
+     * @param Height 图片高
+     * @param Width  图片宽
+     */
+    public void allRowDecrypt(int[][] color, double key, int Height, int Width) {
+        double x = key;
+        for (int i = 0; i < Height; ++i) {
+            x = rowDecrypt(color, x, i, Width);
+        }
+    }
+
+    /**
      * 列加密
      *
      * @param color 颜色通道
@@ -180,48 +222,6 @@ public class Process{
         af.arr_change(temp,temp2, Width, Height);
         for (int i = 0; i < Height; ++i) {
             System.arraycopy(temp2[i], 0, color[i], 0, Width);
-        }
-    }
-
-    /**
-     * 行解密
-     *
-     * @param color 颜色通道
-     * @param key    加密参数
-     * @param i     第i行
-     * @param Width   图片宽
-     * @return double
-     *///行解密算法
-    public double rowDecrypt(int[][] color, double key, int i, int Width) {
-        ArrayFunctions af=new ArrayFunctions();
-        double[] logisticArray =new double[Width];
-        produceLogisticArray(key, logisticArray, Width);
-        HashMap<Double, Integer> m=new HashMap<Double, Integer>();
-        produceMap(m, logisticArray, Width);
-        double[] tempLogArr =new double[Width];
-        af.arr_copy(logisticArray, tempLogArr, Width);
-        int[] addressArray =new int[Width];
-        SelectSort(tempLogArr, Width, m, addressArray);
-        int[] temp =new int[Width];
-        for (int j = 0; j < Width; ++j) {
-            temp[j] = color[i][addressArray[j]];
-        }
-        System.arraycopy(temp, 0, color[i], 0, Width);
-        return logisticArray[Width - 1];
-    }
-
-    /**
-     * 解密全部行
-     *
-     * @param color 颜色通道
-     * @param key   加密参数
-     * @param Height 图片高
-     * @param Width  图片宽
-     */
-    public void allRowDecrypt(int[][] color, double key, int Height, int Width) {
-        double x = key;
-        for (int i = 0; i < Height; ++i) {
-            x = rowDecrypt(color, x, i, Width);
         }
     }
 
