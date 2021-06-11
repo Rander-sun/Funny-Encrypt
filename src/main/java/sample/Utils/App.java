@@ -31,7 +31,7 @@ public class App {
         try{
         File infoFile = new File(absPath+"\\"+info);
         FileWriter writer = new FileWriter(infoFile);
-        writer.write("Original File:"+src+"\n\nYour public key is:\n"+publicKey+"\n\n"+"Your private key is:\n"+privateKey+"\n\n"+"Your original text is:\n"+code+"\n\n"+"Your encrypted text is:\n"+encryptedText);
+        writer.write("Original File:"+src+"\n\nYour public key is:\n"+publicKey+"\n\n"+"Your private key is(密钥):\n"+privateKey+"\n\n"+"Your original text is:\n"+code+"\n\n"+"Your encrypted text is(密文):\n"+encryptedText);
         writer.close();
         } catch (IOException e) {
             e.printStackTrace();
