@@ -103,6 +103,7 @@ public class Main extends Application {
     stage.setScene(scene);
     // 3、打开窗口
     stage.show();
+    dragImage(picEncryption.getFile(),picEncryption.getIv(),picEncryption,1);
     dragImage(ite.getImg(), ite.getIv(),ite,2);
     dragImage(imageFileEncryption.getFile(), imageFileEncryption.getIv(),ite,4);
   }
@@ -147,6 +148,56 @@ public class Main extends Application {
 
                 break;
 
+              case 4:
+                break;
+
+              default:System.out.println("Wrong case!");
+            }
+            imageView.setImage(new Image(new FileInputStream(files.get(0))));
+          }catch (FileNotFoundException e){
+            e.printStackTrace();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    });
+  }
+
+  public static void dragImage(HBox hBox,ImageView imageView,PicEncryption picEncryption,int flag){
+    //下面可以实现拖拽图片进入图片框
+    hBox.setOnDragEntered(new EventHandler<DragEvent>() {
+      @Override
+      public void handle(DragEvent event) {
+        hBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#00ffff"),
+                BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(1))));
+      }
+    });
+    hBox.setOnDragExited(new EventHandler<DragEvent>() {
+      @Override
+      public void handle(DragEvent event) {
+        hBox.setBorder(null);
+      }
+    });
+    hBox.setOnDragOver(new EventHandler<DragEvent>() {
+      @Override
+      public void handle(DragEvent event) {
+        event.acceptTransferModes(event.getTransferMode());
+      }
+    });
+    hBox.setOnDragDropped(new EventHandler<DragEvent>() {
+      @Override
+      public void handle(DragEvent event) {
+        Dragboard db = event.getDragboard();
+        List<File> files= db.getFiles();
+        Constants.IMAGENAME=files.get(0).getAbsolutePath();
+        if(files.size()>0){
+          try{
+            switch(flag){
+              case 1:
+                break;
+              case 2:
+                break;
               case 4:
                 break;
 
