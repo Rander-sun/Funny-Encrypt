@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -21,8 +22,11 @@ import sample.Utils.Constants;
 import sample.Controller.PicEncryptionController;
 import sample.Entity.Pic;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class PicEncryption {
     private AnchorPane an = new AnchorPane();
@@ -127,6 +131,13 @@ public class PicEncryption {
                 pic=new Pic(Constants.IMAGENAME);
             }
             PicEncryptionController.en(pic,Double.parseDouble(String.valueOf(code.getText())));
+            File file=new File(pic.getImageName());
+            try {
+                bufferedImage= ImageIO.read(file);
+                iv.setImage(new Image(new FileInputStream(file)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             new AlertBuilder(confirmButton2).setMessage("加密成功！").setBtn("确认").create();
             //Alert alert=new Alert(Alert.AlertType.INFORMATION);
             //alert.setHeaderText("Congratulations!Encryption Success!");
@@ -141,6 +152,13 @@ public class PicEncryption {
                 pic=new Pic(Constants.IMAGENAME);
             }
             PicEncryptionController.de(pic,Double.parseDouble(String.valueOf(decode.getText())));
+            File file=new File(pic.getImageName());
+            try {
+                bufferedImage= ImageIO.read(file);
+                iv.setImage(new Image(new FileInputStream(file)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             new AlertBuilder(confirmButton2).setMessage("解密成功！").setBtn("确认").create();
             //Alert alert=new Alert(Alert.AlertType.INFORMATION);
             //alert.setHeaderText("Congratulations!Decryption Success!");
