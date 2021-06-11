@@ -24,10 +24,10 @@ public class Pic {
     private int [][]A;
 
     /**
-     * 图片
+     * 设置图片
      *
      * @param Address 地址
-     *///获取图片
+     */
     public Pic(String Address){
         File file=new File(Address);
         try {
@@ -46,11 +46,11 @@ public class Pic {
     }
 
     /**
-     * 设置rgb xy
+     * 设置坐标为（x,y）的像素的rgb，并添加到RGBs(该图片的RGB列表)中
      *
      * @param x x
      * @param y y
-     *///获取图片上坐标为（x,y）的像素点的RGB值,并添加到RGBs(该图片的RGB列表)中
+     */
     public void setRGB_XY(int x,int y){
         int []RGB_XY=new int[6];
         RGB_XY[0]=x;
@@ -70,8 +70,8 @@ public class Pic {
     }
 
     /**
-     * 设置rgb
-     *///设置所有像素点的RGB
+     * 设置所有像素点rgb
+     */
     public void setRGBs(){
         for (int i=0;i<Height;i++){
             for (int j=0;j<Width;j++){
@@ -81,31 +81,31 @@ public class Pic {
     }
 
     /**
-     * 得到的rgb xy
+     * 获取某一点的RGB
      *
      * @param x x
      * @param y y
-     * @return int
-     *///获取某一点的RGB
+     * @return int RGB值
+     */
     public int getRGB_XY(int x,int y){
         return RGBs[x][y];
     }
 
     /**
-     * 得到的rgb
+     * 获取图片的RGB
      *
      * @return {@link int[][]}
-     *///获取图片的RGB
+     */
     public int[][] getRGBs(){
         return RGBs;
     }
 
     /**
-     * 编辑rgb xy
+     * 修改某个像素点的RGB
      *
      * @param x x
      * @param y y
-     *///修改某个像素点的RGB
+     */
     public void editRGB_XY(int x,int y){
         int p=RGBs[x][y];
         p=(A[x][y]<<24)|(Red[x][y]<<16)|(Green[x][y]<<8)|Blue[x][y];
@@ -114,8 +114,8 @@ public class Pic {
     }
 
     /**
-     * 编辑rgb
-     *///根据通道值修改RGBs
+     * 根据通道值修改RGBs
+     */
     public void editRGBs(){
         for(int i=0;i<Height;i++){
             for (int j=0;j<Width;j++){
@@ -188,7 +188,7 @@ public class Pic {
     }
 
     /**
-     * 红起来
+     * 获得红色通道值
      *
      * @return {@link int[][]}
      */
@@ -197,7 +197,7 @@ public class Pic {
     }
 
     /**
-     * 得到绿色
+     * 获得绿色通道值
      *
      * @return {@link int[][]}
      */
@@ -206,7 +206,7 @@ public class Pic {
     }
 
     /**
-     * 得到蓝
+     * 获得蓝色通道值
      *
      * @return {@link int[][]}
      */
@@ -215,35 +215,35 @@ public class Pic {
     }
 
     /**
-     * ini红
+     * 初始化红通道
      */
     public void iniRed() {
         Red = new int[Height][Width];
     }
 
     /**
-     * ini绿色
+     * 初始化绿通道
      */
     public void iniGreen() {
         Green = new int[Height][Width];
     }
 
     /**
-     * ini蓝色
+     * 初始化蓝通道
      */
     public void iniBlue() {
         Blue = new int[Height][Width];
     }
 
     /**
-     * ini rgb
+     * 初始化RGB
      */
     public void iniRGBs(){
         RGBs=new int[Height][Width];
     }
 
     /**
-     * inia
+     * 初始化灰度
      */
     public void iniA(){
         A=new int[Height][Width];
@@ -253,25 +253,25 @@ public class Pic {
     /**
      * 设置红
      *
-     * @param red 红色的
+     * @param red 红通道值
      */
     public void setRed(int[][] red) {
         Red = red;
     }
 
     /**
-     * 集绿色
+     * 设置绿
      *
-     * @param green 绿色
+     * @param green 绿通道值
      */
     public void setGreen(int[][] green) {
         Green = green;
     }
 
     /**
-     * 设置蓝色
+     * 设置蓝
      *
-     * @param blue 蓝色的
+     * @param blue 蓝通道值
      */
     public void setBlue(int[][] blue) {
         Blue = blue;

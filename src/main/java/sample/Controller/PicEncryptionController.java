@@ -15,7 +15,7 @@ public class PicEncryptionController {
      * 在
      *
      * @param pic 图片
-     * @param key 关键
+     * @param key 加密参数
      */
     public static void en(Pic pic, double key){
         pic.setHeight(pic.getImage().getHeight());
@@ -38,7 +38,7 @@ public class PicEncryptionController {
      * 德
      *
      * @param pic 图片
-     * @param key 关键
+     * @param key 加密参数
      */
     public static void de(Pic pic,double key){
         pic.setHeight(pic.getImage().getHeight());

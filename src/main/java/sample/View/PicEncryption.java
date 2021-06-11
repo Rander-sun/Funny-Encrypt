@@ -40,9 +40,9 @@ public class PicEncryption {
     private BufferedImage bufferedImage;
 
     /**
-     * 得到一个
+     * 得到Pane
      *
-     * @return {@link AnchorPane}
+     * @return {@link AnchorPane} an
      */
     public AnchorPane getAn() {
         return an;
@@ -51,9 +51,9 @@ public class PicEncryption {
     private ImageView iv = new ImageView();
 
     /**
-     * 设置一个
+     * 设置Pane
      *
-     * @param an 一个
+     * @param an Pane
      */
     public void setAn(AnchorPane an) {
         this.an = an;
@@ -78,7 +78,7 @@ public class PicEncryption {
     }
 
     /**
-     * 获得表单
+     * 获得VBox
      *
      * @return {@link VBox}
      */
@@ -87,7 +87,7 @@ public class PicEncryption {
     }
 
     /**
-     * 设置形式
+     * 设置Vbox
      *
      * @param form 形式
      */
@@ -96,7 +96,7 @@ public class PicEncryption {
     }
 
     /**
-     * 获得第四
+     * 获得图像展示
      *
      * @return {@link ImageView}
      */
@@ -105,7 +105,7 @@ public class PicEncryption {
     }
 
     /**
-     * 第四集
+     * 设置图像展示
      *
      * @param iv 4
      */
@@ -116,9 +116,9 @@ public class PicEncryption {
 
     /**
      * 图像面板
-     *
-     * @return {@link Pane}
-     *///返回TAB1的内容
+     * 组装图像文件加密相关输入、输出控件
+     * @return {@link Pane} 返回本页面Pane
+     */
     public Pane ImagePane(){
         an.getStyleClass().add("PicPane");
         file.setPrefSize(1100,910);
@@ -226,9 +226,9 @@ public class PicEncryption {
     }
 
     /**
-     * 选择文件
-     *
-     * @param textField   文本字段
+     * 文件拖拽选择器
+     * 实现将文件拖拽到文件文本框，并显示绝对路径的功能
+     * @param textField   文本框
      * @param button      按钮
      * @param fileChooser 文件选择器
      */

@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
- * 过程
+ * 图片加密处理过程
  *
  * @author Hasee
  * @date 2021/06/12
@@ -16,10 +16,10 @@ import java.util.HashMap;
 public class Process{
 
     /**
-     * 创建结果图片
+     * 处理RGBs,输出加密/解密后的图片
      *
-     * @param src src
-     *///处理RGBs,输出加密/解密后的图片
+     * @param src 被加密图片
+     */
     public void CreateResultPic(Pic src){
         String newName="result"+src.getImageName();
         src.setImageName(newName);
@@ -32,20 +32,24 @@ public class Process{
     }
 
     /**
-     * 选择排序
+     * 选择排序，生成地址映射
      *
-     * @param arr         加勒比海盗
+     * @param arr         混沌序列
      * @param length      长度
-     * @param m           米
-     * @param address_arr 地址加勒比海盗
-     *///加解密时使用，选择法排序，同时生成地址映射表
-    public static void SelectSort(double[] arr, int length, HashMap<Double, Integer> m, int[] address_arr) {
-        if (arr == null || length <= 0)return;
+     * @param m           值——下标对应表
+     * @param addressArr  地址映射数组
+     */
+    public static void SelectSort(double[] arr, int length, HashMap<Double, Integer> m, int[] addressArr) {
+        if (arr == null || length <= 0){
+            return;
+        }
         int index = 0;
         for (int i = 0; i < length; ++i) {
             index = i;
             for (int j = i; j < length; ++j) {
-                if (arr[j] < arr[index])index = j;
+                if (arr[j] < arr[index]){
+                    index = j;
+                }
             }
             if (index != i) {
                 double temp;
@@ -53,37 +57,36 @@ public class Process{
                 arr[i]=arr[index];
                 arr[index]=temp;
             }
-
             int address=m.get(arr[i]);
-            address_arr[address] = i;
+            addressArr[address] = i;
         }
     }
 
     /**
-     * 生产物流的数组
+     * 生成混沌数列
      *
-     * @param x   x
-     * @param arr 加勒比海盗
-     * @param N   n
-     *///生成一个混沌序列，以x为初值
-    public static void produce_logisticArray(double x, double[] arr, int N) {
+     * @param x   初值
+     * @param arr 混沌序列
+     * @param N  arr长度
+     */
+    public static void produceLogisticArray(double x, double[] arr, int N) {
         double u = 3.9999999;
         arr[0] = x;
-        for (int i = 1; i < N; ++i) {
+        for (int i = 1; i < N;++i) {
             arr[i] = u*arr[i - 1] * (1 - arr[i - 1]);
         }
     }
 
     /**
-     * 生产图
+     * 生成值——下标对应表
      *
-     * @param m              米
-     * @param logistic_array 逻辑阵列
-     * @param N              n
-     *///通过混沌序列，生成 值-下标 的反向映射
-    public static void produce_map(HashMap<Double, Integer> m, double[] logistic_array, int N) {
+     * @param m             值——下标对应表
+     * @param logisticArray 逻辑阵列
+     * @param N         logisticArray长度
+     */
+    public static void produceMap(HashMap<Double, Integer> m, double[] logisticArray, int N) {
         for (int i = 0; i < N; ++i) {
-            m.put(logistic_array[i], i);
+            m.put(logisticArray[i], i);
         }
 
     }
@@ -91,219 +94,210 @@ public class Process{
     /**
      * 行加密
      *
-     * @param pixel 像素
-     * @param x1    x1
-     * @param i     我
-     * @param M     米
-     * @param N     n
+     * @param color 颜色通道
+     * @param key    加密参数
+     * @param i     第i行
+     * @param Width   图片宽
      * @return double
-     *///行置乱算法
-    public double rowEncrypt(int[][] pixel, double x1, int i, int M, int N) {
+     */
+    public double rowEncrypt(int[][] color, double key, int i, int Width) {
         ArrayFunctions af=new ArrayFunctions();
-        double[] logistic_array = new double[N] ;
-        produce_logisticArray(x1, logistic_array, N);
+        double[] logisticArray = new double[Width] ;
+        produceLogisticArray(key, logisticArray, Width);
         HashMap<Double, Integer> m=new HashMap<Double, Integer>();
-        produce_map(m, logistic_array, N);
-        double[] temp_logArr =new double[N];
-        af.arr_copy(logistic_array, temp_logArr, N);
-        int[] address_array =new int[N];
-        SelectSort(temp_logArr, N, m, address_array);
-        int[] temp =new int[N];
-        for (int j = 0; j < N; ++j) {
-            temp[address_array[j]] = pixel[i][j];
+        produceMap(m, logisticArray, Width);
+        double[] tempLogArr =new double[Width];
+        af.arr_copy(logisticArray, tempLogArr, Width);
+        int[] addressArray =new int[Width];
+        SelectSort(tempLogArr, Width, m, addressArray);
+        int[] temp =new int[Width];
+        for (int j = 0; j < Width; ++j) {
+            temp[addressArray[j]] = color[i][j];
         }
-        System.arraycopy(temp, 0, pixel[i], 0, N);
-        return logistic_array[N - 1];
+        System.arraycopy(temp, 0, color[i], 0, Width);
+        return logisticArray[Width - 1];
     }
 
     /**
-     * 行加密接口
+     * 加密全部行
      *
-     * @param pixel 像素
-     * @param x1    x1
-     * @param M     米
-     * @param N     n
-     *///行置乱接口
-    public void rowEncrypt_interface(int[][] pixel, double x1, int M, int N)
-    {
-        double x = x1;
-        for (int i = 0; i < M; ++i) {
-            x = rowEncrypt(pixel, x, i, M,N);
+     * @param color 颜色通道
+     * @param key   加密参数
+     * @param Height 图片高
+     * @param Width  图片宽
+     */
+    public void allRowEncrypt(int[][] color, double key, int Height, int Width) {
+        double x = key;
+        for (int i = 0; i < Height; ++i) {
+            x = rowEncrypt(color, x, i, Width);
         }
     }
 
     /**
      * 列加密
      *
-     * @param pixel 像素
-     * @param x1    x1
-     * @param i     我
-     * @param M     米
-     * @param N     n
+     * @param color 颜色通道
+     * @param key    加密参数
+     * @param i     第i行
+     * @param Width   图片宽
      * @return double
-     *///列置乱算法
-    public double columnEncrypt(int[][] pixel, double x1, int i, int M, int N)
-    {
+     */
+    public double columnEncrypt(int[][] color, double key, int i, int Width) {
         ArrayFunctions af=new ArrayFunctions();
-        double[] logistic_array =new double[N];
-        produce_logisticArray(x1, logistic_array, N);
+        double[] logisticArray =new double[Width];
+        produceLogisticArray(key, logisticArray, Width);
         HashMap<Double, Integer> m=new HashMap<Double, Integer>();
-        produce_map(m, logistic_array, N);
-        double[] temp_logArr =new double[N];
-        af.arr_copy(logistic_array, temp_logArr, N);
-        int[] address_array =new int[N];
-        SelectSort(temp_logArr, N, m, address_array);
-        int[] temp =new int[N];
-        for (int j = 0; j < N; ++j) {
-            temp[address_array[j]] = pixel[i][j];
+        produceMap(m, logisticArray, Width);
+        double[] tempLogArr =new double[Width];
+        af.arr_copy(logisticArray, tempLogArr, Width);
+        int[] addressArray =new int[Width];
+        SelectSort(tempLogArr, Width, m, addressArray);
+        int[] temp =new int[Width];
+        for (int j = 0; j < Width; ++j) {
+            temp[addressArray[j]] = color[i][j];
         }
-        System.arraycopy(temp, 0, pixel[i], 0, N);
-        return logistic_array[N - 1];
+        System.arraycopy(temp, 0, color[i], 0, Width);
+        return logisticArray[Width - 1];
     }
 
     /**
-     * 列加密接口
+     * 加密全部列
      *
-     * @param pixel 像素
-     * @param x1    x1
-     * @param M     米
-     * @param N     n
-     *///列置乱接口
-    public void columnEncrypt_interface(int[][] pixel, double x1, int M, int N) {
+     * @param color 颜色通道
+     * @param key    加密参数
+     * @param Height     图片高
+     * @param Width   图片宽
+     */
+    public void allColumnEncrypt(int[][] color, double key, int Height, int Width) {
         ArrayFunctions af=new ArrayFunctions();
-        int[][] temp =new int[N][M];
-        af.arr_change(pixel,temp, M, N);
-        double x = x1;
-        for (int i = 0; i < N; ++i) {
-            x = columnEncrypt(temp, x, i,N ,M);
+        int[][] temp =new int[Width][Height];
+        af.arr_change(color,temp, Height, Width);
+        double x = key;
+        for (int i = 0; i < Width; ++i) {
+            x = columnEncrypt(temp, x, i, Height);
         }
-        int[][] temp2 =new int[M][N];
-        af.arr_change(temp,temp2, N, M);
-        for (int i = 0; i < M; ++i) {
-            System.arraycopy(temp2[i], 0, pixel[i], 0, N);
+        int[][] temp2 =new int[Height][Width];
+        af.arr_change(temp,temp2, Width, Height);
+        for (int i = 0; i < Height; ++i) {
+            System.arraycopy(temp2[i], 0, color[i], 0, Width);
         }
     }
 
     /**
      * 行解密
      *
-     * @param pixel 像素
-     * @param x1    x1
-     * @param i     我
-     * @param N     n
+     * @param color 颜色通道
+     * @param key    加密参数
+     * @param i     第i行
+     * @param Width   图片宽
      * @return double
      *///行解密算法
-    public double rowDecrypt(int[][] pixel, double x1, int i, int N)
-    {
+    public double rowDecrypt(int[][] color, double key, int i, int Width) {
         ArrayFunctions af=new ArrayFunctions();
-        double[] logistic_array =new double[N];
-        produce_logisticArray(x1, logistic_array, N);
+        double[] logisticArray =new double[Width];
+        produceLogisticArray(key, logisticArray, Width);
         HashMap<Double, Integer> m=new HashMap<Double, Integer>();
-        produce_map(m, logistic_array, N);
-        double[] temp_logArr =new double[N];
-        af.arr_copy(logistic_array, temp_logArr, N);
-        int[] address_array =new int[N];
-        SelectSort(temp_logArr, N, m, address_array);
-        int[] temp =new int[N];
-        for (int j = 0; j < N; ++j) {
-            temp[j] = pixel[i][address_array[j]];
+        produceMap(m, logisticArray, Width);
+        double[] tempLogArr =new double[Width];
+        af.arr_copy(logisticArray, tempLogArr, Width);
+        int[] addressArray =new int[Width];
+        SelectSort(tempLogArr, Width, m, addressArray);
+        int[] temp =new int[Width];
+        for (int j = 0; j < Width; ++j) {
+            temp[j] = color[i][addressArray[j]];
         }
-        System.arraycopy(temp, 0, pixel[i], 0, N);
-        return logistic_array[N - 1];
+        System.arraycopy(temp, 0, color[i], 0, Width);
+        return logisticArray[Width - 1];
     }
 
     /**
-     * 行解密接口
+     * 解密全部行
      *
-     * @param pixel 像素
-     * @param x1    x1
-     * @param M     米
-     * @param N     n
-     *///行解密接口
-    public void rowDecrypt_interface(int[][] pixel, double x1, int M, int N) {
-        double x = x1;
-        for (int i = 0; i < M; ++i) {
-            x = rowDecrypt(pixel, x, i, N);
+     * @param color 颜色通道
+     * @param key   加密参数
+     * @param Height 图片高
+     * @param Width  图片宽
+     */
+    public void allRowDecrypt(int[][] color, double key, int Height, int Width) {
+        double x = key;
+        for (int i = 0; i < Height; ++i) {
+            x = rowDecrypt(color, x, i, Width);
         }
     }
 
     /**
      * 列解密
      *
-     * @param pixel 像素
-     * @param x1    x1
-     * @param i     我
-     * @param M     米
-     * @param N     n
+     * @param color 颜色通道
+     * @param key    加密参数
+     * @param i     第i行
+     * @param Width   图片宽
      * @return double
-     *///列解密算法
-    public double columnDecrypt(int[][] pixel, double x1, int i, int M, int N)
-    {
+     */
+    public double columnDecrypt(int[][] color, double key, int i, int Width) {
         ArrayFunctions af=new ArrayFunctions();
-        double[] logistic_array =new double[N];
-        produce_logisticArray(x1, logistic_array, N);
+        double[] logisticArray =new double[Width];
+        produceLogisticArray(key, logisticArray, Width);
         HashMap<Double, Integer> m=new HashMap<Double, Integer>();
-        produce_map(m, logistic_array, N);
-        double[] temp_logArr =new double[N];
-        af.arr_copy(logistic_array, temp_logArr, N);
-        int[] address_array =new int[N];
-        SelectSort(temp_logArr, N, m, address_array);
-        int[] temp =new int[N];
-        for (int j = 0; j < N; ++j) {
-            temp[j] = pixel[i][address_array[j]];
+        produceMap(m, logisticArray, Width);
+        double[] tempLogArr =new double[Width];
+        af.arr_copy(logisticArray, tempLogArr, Width);
+        int[] addressArray =new int[Width];
+        SelectSort(tempLogArr, Width, m, addressArray);
+        int[] temp =new int[Width];
+        for (int j = 0; j < Width; ++j) {
+            temp[j] = color[i][addressArray[j]];
         }
-        System.arraycopy(temp, 0, pixel[i], 0, N);
-        return logistic_array[N - 1];
+        System.arraycopy(temp, 0, color[i], 0, Width);
+        return logisticArray[Width - 1];
     }
 
     /**
-     * 列解密接口
+     * 解密全部列
      *
-     * @param pixel 像素
-     * @param x1    x1
-     * @param M     米
-     * @param N     n
-     *///列解密接口
-    public void columnDecrypt_interface(int[][] pixel, double x1, int M, int N) {
+     * @param color 颜色通道
+     * @param key   加密参数
+     * @param Height 图片高
+     * @param Width  图片宽
+     */
+    public void allColumnDecrypt(int[][] color, double key, int Height, int Width) {
         ArrayFunctions af=new ArrayFunctions();
-        int[][] temp =new int[N][M];
-        af.arr_change(pixel, temp, M, N);
-        double x = x1;
-        for (int i = 0; i < N; ++i) {
-            x = columnDecrypt(temp, x, i, N, M);
-
+        int[][] temp =new int[Width][Height];
+        af.arr_change(color, temp, Height, Width);
+        double x = key;
+        for (int i = 0; i < Width; ++i) {
+            x = columnDecrypt(temp, x, i, Height);
         }
-        int[][] temp2 =new int[M][N];
-        af.arr_change(temp, temp2, N, M);
-        for (int i = 0; i < M; ++i) {
-            System.arraycopy(temp2[i], 0, pixel[i], 0, N);
+        int[][] temp2 =new int[Height][Width];
+        af.arr_change(temp, temp2, Width, Height);
+        for (int i = 0; i < Height; ++i) {
+            System.arraycopy(temp2[i], 0, color[i], 0, Width);
         }
     }
 
     /**
      * 加密
      *
-     * @param pixel 像素
-     * @param x1    x1
-     * @param M     米
-     * @param N     n
-     *///置乱
-    public void encrypt(int[][] pixel, double x1, int M, int N) {
-        rowEncrypt_interface(pixel, x1, M, N);
-        columnEncrypt_interface(pixel, x1, M, N);
+     * @param color 颜色通道
+     * @param key   加密参数
+     * @param Height 图片高
+     * @param Width  图片宽
+     */
+    public void encrypt(int[][] color, double key, int Height, int Width) {
+        allRowEncrypt(color, key, Height, Width);
+        allColumnEncrypt(color, key, Height, Width);
     }
 
     /**
      * 解密
      *
-     * @param pixel 像素
-     * @param x1    x1
-     * @param M     米
-     * @param N     n
-     *///解密
-    public void decrypt(int[][] pixel, double x1, int M, int N) {
-        columnDecrypt_interface(pixel, x1, M, N);
-        rowDecrypt_interface(pixel, x1, M, N);
-
+     * @param color 颜色通道
+     * @param key   加密参数
+     * @param Height 图片高
+     * @param Width  图片宽
+     */
+    public void decrypt(int[][] color, double key, int Height, int Width) {
+        allColumnDecrypt(color, key, Height, Width);
+        allRowDecrypt(color, key, Height, Width);
     }
 }
