@@ -1,55 +1,65 @@
 
-.Menu{
-    -fx-background-color:#F0F0F0;
+.tab-pane{
+    -fx-background-color:#ffffff;
     -fx-border:none;
     -fx-padding:0;
-    -fx-font-size:12;
 }
-.MenuItem{
-    -fx-padding: 8 60 8 30;
-    -fx-font-size:12;
-    -fx-cursor:hand;
-}
-.context-menu{
-    -fx-padding:2;
-    -fx-border-width:0;
-    -fx-background-color:rgb(242,242,242); /*0.87*/
-    /*-fx-background-radius:2px;*/
-    /*-fx-effect:dropshadow(three-pass-box, #F2F2F2, 1, 0, 0, 0);*/ /*阴影效果*/
-}
-.menu-bar > .container > .menu-button:showing{ /*菜单栏选中并移动到二级菜单时一级选中菜单的样式*/
-    -fx-background-color:#CCCCCE;
-    -fx-border-color:#CCCCCE;
+.tab-pane>*.tab-header-area>*.tab-header-background
+{
+    -fx-background-color: -fx-outer-border, -fx-text-box-border, #ffffff;
 }
 .menu-button{
-    -fx-padding:1 4 1 4;
-    -fx-border-width:1;
-    -fx-border-color:#F0F0F0;
+    -fx-padding: 8 70 8 40;
+    -fx-font-size:18;
+    -fx-cursor:hand;
+    -fx-border-width:0;
+    -fx-border-color:#efeeee;
+    -fx-content-display: inline-block;
+    -fx-text-alignment: center;
+    -fx-border-radius: 15px;
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+
 }
 .menu-button:hover{
     -fx-background-color:#CCCCCE;
     -fx-border-color:#CCCCCE;
 }
-.menu-button > .label,.menu-item > .label{
-    -fx-text-fill:BLACK;
+
+.menu-button:selected{
+    -fx-background-color: #B0E0E6;
 }
-.menu-item:focused{
-    -fx-background-color:#CCCCCE; /*#90C8F6*/
-}
-.menu:focused > .right-container > .arrow{
-    -fx-background-color:#CCCCCE;
+.tab-pane:focused>.tab-header-area>.headers-region>.tab:selected .focus-indicator {
+    -fx-border-color: #B0E0E6;
 }
 .Image{
-    -fx-background-color:#D3D3D3;
+    -fx-background-color:#F5F5F5;
     -fx-pref-width: 1100;
     -fx-pref-height: 910;
 }
-
 .RightForm{
+    -fx-font-size: 16;
     -fx-pref-width: 200;
     -fx-pref-height: 600;
 }
 .Tip0{
     position: absolute;
-
+}
+.button-raised{
+    -fx-padding: 0.7em 0.5em;
+    -fx-font-size: 12px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: #FF6347;
+    -fx-pref-width: 70;
+    -fx-pref-height: 40;
+    -fx-text-fill: WHITE;
+}
+.button2-raised{
+    -fx-padding: 0.7em 0.5em;
+    -fx-font-size: 12px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: #20B2AA;
+    -fx-pref-width: 70;
+    -fx-pref-height: 40;
+    -fx-text-fill: WHITE;
 }

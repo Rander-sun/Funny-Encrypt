@@ -1,7 +1,9 @@
 package sample;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -61,7 +63,7 @@ public class PicEncryption {
     public Pane ImagePane(){
         an.getStyleClass().add("PicPane");
         file.setPrefSize(1100,910);
-        file.setStyle("-fx-background-color: #D3D3D3");
+        file.setStyle("-fx-background-color: #EEE9E9");
         iv.setPreserveRatio(true);
         iv.setFitWidth(1100);
         iv.setFitHeight(910);
@@ -97,8 +99,10 @@ public class PicEncryption {
         filePath2.setText("拖拽/浏览文件以输入");
         ChooseFile(filePath2,openButton2,fileChooser);
         filesBox2.getChildren().addAll(filePath2,openButton2);
-        Button confirmButton1=new Button("确认加密");
-        Button confirmButton2=new Button("确认解密");
+        JFXButton confirmButton1=new JFXButton("确认加密");
+        confirmButton1.getStyleClass().add("button-raised");
+        JFXButton confirmButton2=new JFXButton("确认解密");
+        confirmButton2.getStyleClass().add("button2-raised");
 
         //对应加密controller
 
@@ -117,9 +121,8 @@ public class PicEncryption {
         });
 
         form.getChildren().addAll(fileTip,filesBox1,codeTip, code,confirmButton1,separator,fileDecTip,filesBox2,codeDecText,decode,confirmButton2);
-
-
-        form.setSpacing(10);
+        form.setAlignment(Pos.CENTER);
+        form.setSpacing(20);
         an.setLeftAnchor(file,2.0);
         an.setTopAnchor(form,200.0);
         an.setRightAnchor(form,50.0);

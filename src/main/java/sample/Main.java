@@ -75,26 +75,50 @@ public class Main extends Application {
     TabPane tabPane=new TabPane();
     tabPane.getStyleClass().add("Menu");
     Tab tab1=new Tab("图像转换加密");
-    tab1.getStyleClass().add("MenuItem");
+    tab1.getStyleClass().add("menu-button");
     Tab tab2=new Tab("图像隐写加密信息");
-    tab2.getStyleClass().add("MenuItem");
+    tab2.getStyleClass().add("menu-button");
     Tab tab3=new Tab("视频加密");
-    tab3.getStyleClass().add("MenuItem");
+    tab3.getStyleClass().add("menu-button");
     Tab tab4=new Tab("图像隐写加密文件");
-    tab4.getStyleClass().add("MenuItem");
+    tab4.getStyleClass().add("menu-button");
     tabPane.getTabs().addAll(tab1,tab2,tab4,tab3);
     //给tab1传内容
     PicEncryption picEncryption=new PicEncryption();
     tab1.setContent(picEncryption.ImagePane());
+    File file1=new File("src/main/resources/ima/photo1.png");
+    Image photo1=new Image(new FileInputStream(file1));
+    ImageView btnphoto1=new ImageView(photo1);
+    btnphoto1.setFitHeight(40);
+    btnphoto1.setFitWidth(40);
+    tab1.setGraphic(btnphoto1);
     //给tab2传内容
     ImageTextEncrypt ite=new ImageTextEncrypt();
     tab2.setContent(ite.ImagePane());
+    File file2=new File("src/main/resources/ima/photo3.png");
+    Image photo2=new Image(new FileInputStream(file2));
+    ImageView btnphoto2=new ImageView(photo2);
+    btnphoto2.setFitHeight(40);
+    btnphoto2.setFitWidth(40);
+    tab2.setGraphic(btnphoto2);
     //传给tab4
     ImageFileEncryption imageFileEncryption=new ImageFileEncryption();
     tab4.setContent(imageFileEncryption.ImagePane());
+    File file3=new File("src/main/resources/ima/photo2.png");
+    Image photo3=new Image(new FileInputStream(file3));
+    ImageView btnphoto3=new ImageView(photo3);
+    btnphoto3.setFitHeight(40);
+    btnphoto3.setFitWidth(40);
+    tab4.setGraphic(btnphoto3);
     //传给tab3
     VideoEncryptionPage videoEncryptionPage = new VideoEncryptionPage();
     tab3.setContent(videoEncryptionPage.VideoPane());
+    File file4=new File("src/main/resources/ima/video.png");
+    Image photo4=new Image(new FileInputStream(file4));
+    ImageView btnphoto4=new ImageView(photo4);
+    btnphoto4.setFitHeight(35);
+    btnphoto4.setFitWidth(35);
+    tab3.setGraphic(btnphoto4);
 
     // 1、初始化一个场景
     Scene scene = new Scene(tabPane, 1400, 1000);
