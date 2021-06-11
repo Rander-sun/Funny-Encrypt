@@ -92,9 +92,13 @@ public class ImageFileEncryption {
         final FileChooser fileChooser=new FileChooser();
         final Button openButton1 = new Button("浏览文件");
         //final Button openButton2 = new Button("选择解密文件");
-        JFXTooltip tooltip1=new JFXTooltip("操作提示：\n将图片拖入左侧灰色框内\n在文件框内浏览或拖拽文件\n在密码框中输入自定的密码\n复制生成的密码\n在应用根目录获取加密好的图片\n在原文件目录下获取加密好的ENC文件\n输入程序加密时输出的密钥解密");
+        JFXTooltip tooltip1=new JFXTooltip("操作提示：\n将图片拖入左侧灰色框内\n在文件框内浏览或拖拽文件\n在密码框中输入自定的密码\n复制弹出框生成的密码\n在文件源目录获取加密好的图片（覆盖原图）和ENC文件");
         JFXButton tipBtn=new JFXButton("提示");
         tipBtn.setTooltip(tooltip1);
+        JFXTooltip tooltip2=new JFXTooltip("操作提示：\n解密时用对应的ENC文件\n输入程序加密时输出的密钥解密\n在ENC文件源目录获取解密后的DEC文件");
+        JFXButton tipBtn2=new JFXButton("提示");
+        tipBtn2.setTooltip(tooltip2);
+
         Text tip0=new Text();
         //tip0.setText("操作提示：\n将图片拖入左侧灰色框内\n文件框内浏览或拖拽文件\n在密码框中输入自定的密码，点击加密\n点击弹窗点击ctrl+c可复制密码\n在应用根目录获取加密好的图片\n在原文件目录下获取加密好的ENC文件\n解密时，输入程序加密时输出的密钥");
 
@@ -171,7 +175,7 @@ public class ImageFileEncryption {
             alert.showAndWait();
         });
 
-        form.getChildren().addAll(tipBtn,fileTip,filesBox1,codeTip, code,confirmButton1,separator,fileDecTip,filesBox2,codeDecText,decode,confirmButton2);
+        form.getChildren().addAll(tipBtn,fileTip,filesBox1,codeTip, code,confirmButton1,separator,tipBtn2,fileDecTip,filesBox2,codeDecText,decode,confirmButton2);
         form.setAlignment(Pos.CENTER);
         form.setSpacing(20);
         an.setLeftAnchor(file,2.0);

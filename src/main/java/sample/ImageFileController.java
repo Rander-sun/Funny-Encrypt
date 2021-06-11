@@ -9,6 +9,7 @@ public class ImageFileController {
             Util.jpg2png(myImage.getimage(),Constants.IMAGENAME);
             myImage=new MyImage(Constants.IMAGENAME);
             keyCoordinate=App.encryptFile(myImage,filePath,password2);
+            System.out.println(keyCoordinate);
         } catch (IOException e) {
             e.printStackTrace();
         }

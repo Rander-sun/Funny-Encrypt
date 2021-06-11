@@ -155,7 +155,7 @@ public class Util {
   public static String changeDecName(File file){
     String ori=file.getName();
     int position=ori.lastIndexOf(".");
-    String newName=ori.substring(0,position)+"DEC"+ori.substring(position);
+    String newName=ori.substring(0,position)+"_DEC"+ori.substring(position);
     return newName;
   }
 

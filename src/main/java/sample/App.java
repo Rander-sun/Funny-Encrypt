@@ -91,7 +91,7 @@ public class App {
         byte[] result;
         File file = new File(filePath);
         String newFile=Util.changeDecName(file);
-        newFile=file.getName()+newFile;
+        newFile=file.getParent()+"\\"+newFile;
         File nFile=new File(newFile);
         FileInputStream inputStream =new FileInputStream(file);
         FileOutputStream outputStream = new FileOutputStream(nFile);
