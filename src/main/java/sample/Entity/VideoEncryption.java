@@ -3,9 +3,20 @@ package sample.Entity;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * 视频加密
+ *
+ * @author Hasee
+ * @date 2021/06/12
+ */
 public class VideoEncryption{
     private File file;
 
+    /**
+     * 得到新文件
+     *
+     * @return {@link File}
+     */
     public File getNewFile() {
         return newFile;
     }
@@ -13,12 +24,25 @@ public class VideoEncryption{
     private String code;
     private  File newFile;
 
+    /**
+     * 得到包装路径
+     *
+     * @return {@link String}
+     */
     public String getPackingPath() {
         return packingPath;
     }
 
     private String packingPath;
 
+    /**
+     * 视频加密
+     *
+     * @param pathname 路径名
+     * @param newName  新名字
+     * @param message  消息
+     * @param flag     国旗
+     */
     public VideoEncryption(String pathname,String newName,String message,int flag){
         this.code=message;
         file = new File(pathname);

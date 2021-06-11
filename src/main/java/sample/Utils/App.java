@@ -13,8 +13,20 @@ import javax.imageio.ImageIO;
 import java.io.*;
 import java.util.Base64;
 
+/**
+ * 应用程序
+ *
+ * @author Hasee
+ * @date 2021/06/12
+ */
 public class App {
 
+    /**
+     * 加密视频
+     *
+     * @param src  src
+     * @param code 代码
+     */
     public static void encryptVideo(String src,String code){
         String encryptedName= Util.changeEncName(new File(src));
         System.out.println("Generating keys...");
@@ -38,7 +50,14 @@ public class App {
         }
         System.out.println("Encryption Success!");
     }
-    //DecMethods
+
+    /**
+     * 解密视频
+     *
+     * @param filePath 文件路径
+     * @param encText  内附文本
+     * @param priKey   革命制度党关键
+     *///DecMethods
     public static void decryptVideo(String filePath,String encText,String priKey){
         String nName=Util.changeDecName(new File(filePath));
         System.out.println("Decrypting...");
@@ -46,7 +65,16 @@ public class App {
         VideoEncryption detool = new VideoEncryption(filePath,nName,rsa.getOriginText(),0);
         System.out.println("Decryption Success!");
     }
-    //PackItUp
+
+    /**
+     * 加密文件
+     *
+     * @param image    图像
+     * @param filePath 文件路径
+     * @param password 密码
+     * @return {@link String}
+     * @throws IOException ioexception
+     *///PackItUp
     public static String encryptFile(MyImage image, String filePath, String password) throws IOException {
         int readLength;//读入长度
         byte result[];//加密结果
@@ -83,6 +111,14 @@ public class App {
         return keyCoordinate;
     }
 
+    /**
+     * 解密文件
+     *
+     * @param image    图像
+     * @param filePath 文件路径
+     * @param PWD      松材线虫病
+     * @throws IOException ioexception
+     */
     public static void decryptFile(MyImage image,String filePath,String PWD) throws IOException {
 
         //先获取原密码byte[]形式

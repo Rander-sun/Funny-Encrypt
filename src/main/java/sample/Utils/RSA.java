@@ -16,8 +16,20 @@ import java.security.spec.PKCS8EncodedKeySpec;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+/**
+ * rsa
+ *
+ * @author Hasee
+ * @date 2021/06/12
+ */
 public class RSA {
     private static final int MAX_DECRYPT_SIZE=64;
+
+    /**
+     * 得到公钥
+     *
+     * @return {@link PublicKey}
+     */
     public PublicKey getPublicKey() {
         return publicKey;
     }
@@ -25,17 +37,39 @@ public class RSA {
     private RSAPrivateKey privateKey;
     private String originText;
     private String encryptedText;
+
+    /**
+     * 获得私钥
+     *
+     * @return {@link PrivateKey}
+     */
     public PrivateKey getPrivateKey() {
         return privateKey;
     }
+
+    /**
+     * 得到源文本
+     *
+     * @return {@link String}
+     */
     public String getOriginText() {
         return originText;
     }
+
+    /**
+     * 得到加密文本
+     *
+     * @return {@link String}
+     */
     public String getEncryptedText() {
         return encryptedText;
     }
 
-//输入原文获取加密结果
+    /**
+     * rsa
+     *
+     * @param origin 起源
+     *///输入原文获取加密结果
     public RSA(String origin){
         this.originText=origin;
         try{
@@ -55,7 +89,12 @@ public class RSA {
         }
     }
 
-//输入私钥和密文获取明文
+    /**
+     * rsa
+     *
+     * @param encrypted 加密
+     * @param pri       革命制度党
+     *///输入私钥和密文获取明文
     public RSA(String encrypted,String pri){
         this.encryptedText=encrypted;
         try{
@@ -80,6 +119,11 @@ public class RSA {
         }
     }
 
+    /**
+     * 获取密钥对
+     *
+     * @throws NoSuchAlgorithmException 没有这样的算法异常
+     */
     public void getKeyPair() throws NoSuchAlgorithmException {
         KeyPairGenerator generator =KeyPairGenerator.getInstance("RSA");//指定算法的密钥对生成器
         generator.initialize(512);//密钥长度
@@ -87,7 +131,16 @@ public class RSA {
         this.privateKey=(RSAPrivateKey) keys.getPrivate();
         this.publicKey=(RSAPublicKey)keys.getPublic();
     }
-//公钥加密
+
+    /**
+     * 加密文本
+     *
+     * @throws NoSuchPaddingException    没有这样的填充例外
+     * @throws NoSuchAlgorithmException  没有这样的算法异常
+     * @throws InvalidKeyException       无效的关键例外
+     * @throws IllegalBlockSizeException 非法的块大小异常
+     * @throws BadPaddingException       坏填充例外
+     *///公钥加密
     public void encryptText() throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         Cipher cipher= Cipher.getInstance("RSA");//获取密码器
         cipher.init(Cipher.ENCRYPT_MODE,this.publicKey);//初始化模型
@@ -97,7 +150,17 @@ public class RSA {
         //this.encryptedText=Base64.getEncoder().encodeToString(enText);
     }
 
-//考虑到密文可能过长，对其进行分段解密
+    /**
+     * 解密文本
+     *
+     * @param pk pk
+     * @throws IllegalBlockSizeException    非法的块大小异常
+     * @throws BadPaddingException          坏填充例外
+     * @throws NoSuchPaddingException       没有这样的填充例外
+     * @throws NoSuchAlgorithmException     没有这样的算法异常
+     * @throws InvalidKeyException          无效的关键例外
+     * @throws UnsupportedEncodingException 不支持的编码异常
+     *///考虑到密文可能过长，对其进行分段解密
     public void decryptText(RSAPrivateKey pk) throws IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
         Cipher cipher=Cipher.getInstance("RSA");
         cipher.init(Cipher.DECRYPT_MODE,pk);
@@ -121,7 +184,12 @@ public class RSA {
         this.originText = outputStream.toString(String.valueOf(UTF_8));
     }
 
-    //bytes to string with blank
+    /**
+     * 字节字符串
+     *
+     * @param bytes 字节
+     * @return {@link String}
+     *///bytes to string with blank
     public String bytesToString(byte[] bytes){
         StringBuffer stringBuffer = new StringBuffer();
         int i;
@@ -135,7 +203,12 @@ public class RSA {
         return stringBuffer.toString();
     }
 
-    //string to bytes without blank
+    /**
+     * 字符串字节
+     *
+     * @param string 字符串
+     * @return {@link byte[]}
+     *///string to bytes without blank
     public byte[] stringToBytes(String string){
         String[] strings = string.split(" ");
         int len= strings.length;

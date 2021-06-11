@@ -32,47 +32,104 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+/**
+ * 图像文件加密
+ *
+ * @author Hasee
+ * @date 2021/06/12
+ */
 public class ImageFileEncryption {
     private AnchorPane an = new AnchorPane();
     private HBox file=new HBox();
 
+    /**
+     * 得到缓冲图像
+     *
+     * @return {@link BufferedImage}
+     */
     public BufferedImage getBufferedImage() {
         return bufferedImage;
     }
 
+    /**
+     * 设置缓冲图片
+     *
+     * @param bufferedImage 缓冲图像
+     */
     public void setBufferedImage(BufferedImage bufferedImage) {
         this.bufferedImage = bufferedImage;
     }
 
     private BufferedImage bufferedImage;
+
+    /**
+     * 得到一个
+     *
+     * @return {@link AnchorPane}
+     */
     public AnchorPane getAn() {
         return an;
     }
 
+    /**
+     * 设置一个
+     *
+     * @param an 一个
+     */
     public void setAn(AnchorPane an) {
         this.an = an;
     }
 
+    /**
+     * 得到文件
+     *
+     * @return {@link HBox}
+     */
     public HBox getFile() {
         return file;
     }
 
+    /**
+     * 设置文件
+     *
+     * @param file 文件
+     */
     public void setFile(HBox file) {
         this.file = file;
     }
 
+    /**
+     * 获得表单
+     *
+     * @return {@link VBox}
+     */
     public VBox getForm() {
         return form;
     }
 
+    /**
+     * 设置形式
+     *
+     * @param form 形式
+     */
     public void setForm(VBox form) {
         this.form = form;
     }
 
+    /**
+     * 获得第四
+     *
+     * @return {@link ImageView}
+     */
     public ImageView getIv() {
         return iv;
     }
 
+    /**
+     * 第四集
+     *
+     * @param iv 4
+     */
     public void setIv(ImageView iv) {
         this.iv = iv;
     }
@@ -80,6 +137,11 @@ public class ImageFileEncryption {
     private VBox form =new VBox();
     private ImageView iv = new ImageView();
 
+    /**
+     * 图像面板
+     *
+     * @return {@link Pane}
+     */
     public Pane ImagePane(){
         an.getStyleClass().add("ImageFilePane");
         file.setPrefSize(1100,910);
@@ -198,6 +260,14 @@ public class ImageFileEncryption {
         return an;
 
     }
+
+    /**
+     * 选择文件
+     *
+     * @param textField   文本字段
+     * @param button      按钮
+     * @param fileChooser 文件选择器
+     */
     public static void ChooseFile(TextField textField, Button button, FileChooser fileChooser) {
         Stage fileStage = new Stage();
         fileStage.setTitle("选择文件...");

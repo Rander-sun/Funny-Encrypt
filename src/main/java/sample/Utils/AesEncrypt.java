@@ -13,9 +13,22 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+/**
+ * aes加密
+ *
+ * @author Hasee
+ * @date 2021/06/12
+ */
 public class AesEncrypt {
 
-    public static byte[] aesEncrypt(String content, String password) {
+  /**
+   * aes加密
+   *
+   * @param content  内容
+   * @param password 密码
+   * @return {@link byte[]}
+   */
+  public static byte[] aesEncrypt(String content, String password) {
       try {
         KeyGenerator kgen = KeyGenerator.getInstance("AES");
         kgen.init(128, new SecureRandom(password.getBytes()));
@@ -43,7 +56,14 @@ public class AesEncrypt {
       return null;
     }
 
-    public static  byte[] aesEncrypt(byte[] content,String password){
+  /**
+   * aes加密
+   *
+   * @param content  内容
+   * @param password 密码
+   * @return {@link byte[]}
+   */
+  public static  byte[] aesEncrypt(byte[] content,String password){
       try {
         KeyGenerator kgen = KeyGenerator.getInstance("AES");
 
@@ -74,7 +94,14 @@ public class AesEncrypt {
       return null;
     }
 
-    public static byte[] decrypt(byte[] content, String password) {
+  /**
+   * 解密
+   *
+   * @param content  内容
+   * @param password 密码
+   * @return {@link byte[]}
+   */
+  public static byte[] decrypt(byte[] content, String password) {
       try {
         KeyGenerator kgen = KeyGenerator.getInstance("AES");
         kgen.init(128, new SecureRandom(password.getBytes()));

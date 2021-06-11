@@ -3,7 +3,20 @@ package sample.Controller;
 import sample.Entity.Pic;
 import sample.Utils.Process;
 
+/**
+ * 图片加密控制器
+ *
+ * @author Hasee
+ * @date 2021/06/12
+ */
 public class PicEncryptionController {
+
+    /**
+     * 在
+     *
+     * @param pic 图片
+     * @param key 关键
+     */
     public static void en(Pic pic, double key){
         pic.setHeight(pic.getImage().getHeight());
         pic.setWidth(pic.getImage().getWidth());
@@ -20,6 +33,13 @@ public class PicEncryptionController {
         pic.editRGBs();
         process.CreateResultPic(pic);
     }
+
+    /**
+     * 德
+     *
+     * @param pic 图片
+     * @param key 关键
+     */
     public static void de(Pic pic,double key){
         pic.setHeight(pic.getImage().getHeight());
         pic.setWidth(pic.getImage().getWidth());

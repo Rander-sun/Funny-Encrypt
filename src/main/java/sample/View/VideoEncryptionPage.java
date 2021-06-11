@@ -26,30 +26,66 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 
+/**
+ * 视频加密页面
+ *
+ * @author Hasee
+ * @date 2021/06/12
+ */
 public class VideoEncryptionPage {
     private AnchorPane an = new AnchorPane();
 
+    /**
+     * 得到一个
+     *
+     * @return {@link AnchorPane}
+     */
     public AnchorPane getAn() {
         return an;
     }
 
+    /**
+     * 设置一个
+     *
+     * @param an 一个
+     */
     public void setAn(AnchorPane an) {
         this.an = an;
     }
 
 
+    /**
+     * 获得表单
+     *
+     * @return {@link VBox}
+     */
     public VBox getForm() {
         return form;
     }
 
+    /**
+     * 设置形式
+     *
+     * @param form 形式
+     */
     public void setForm(VBox form) {
         this.form = form;
     }
 
+    /**
+     * 得到视频帧
+     *
+     * @return {@link VBox}
+     */
     public VBox getVideoFrame() {
         return videoFrame;
     }
 
+    /**
+     * 设置视频帧
+     *
+     * @param videoFrame 视频帧
+     */
     public void setVideoFrame(VBox videoFrame) {
         this.videoFrame = videoFrame;
     }
@@ -59,15 +95,31 @@ public class VideoEncryptionPage {
 
     private ImageView imageView= new ImageView();
 
+    /**
+     * 得到图像视图
+     *
+     * @return {@link ImageView}
+     */
     public ImageView getImageView() {
         return imageView;
     }
 
+    /**
+     * 设置图像视图
+     *
+     * @param imageView 图像视图
+     */
     public void setImageView(ImageView imageView) {
         this.imageView = imageView;
     }
 
 
+    /**
+     * 视频面板
+     *
+     * @return {@link Pane}
+     * @throws FileNotFoundException 文件未发现异常
+     */
     public Pane VideoPane() throws FileNotFoundException {
         an.getStyleClass().add("ImagePane");
         //初始化学
@@ -168,6 +220,13 @@ public class VideoEncryptionPage {
         return an;
     }
 
+    /**
+     * 选择file2
+     *
+     * @param textField   文本字段
+     * @param button      按钮
+     * @param fileChooser 文件选择器
+     */
     public static void ChooseFile2(TextField textField, Button button, FileChooser fileChooser) {
         Stage fileStage = new Stage();
         fileStage.setTitle("选择文件...");

@@ -12,9 +12,24 @@ import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
 
+/**
+ * 测试
+ *
+ * @author Hasee
+ * @date 2021/06/12
+ */
 public class Test {
 
-   public static String encrypt(MyImage image,String content,String password) throws IOException {
+  /**
+   * 加密
+   *
+   * @param image    图像
+   * @param content  内容
+   * @param password 密码
+   * @return {@link String}
+   * @throws IOException ioexception
+   */
+  public static String encrypt(MyImage image,String content,String password) throws IOException {
 
      System.out.println("加密前：" + content);
      byte[] encode = AesEncrypt.aesEncrypt(content, password);//加密后密文
@@ -31,7 +46,16 @@ public class Test {
      return uPassword;
    }
 
-   public static String deCode(MyImage image1,String uPassword,String password)
+  /**
+   * de代码
+   *
+   * @param image1    image1
+   * @param uPassword 你的密码
+   * @param password  密码
+   * @return {@link String}
+   * @throws UnsupportedEncodingException 不支持的编码异常
+   */
+  public static String deCode(MyImage image1,String uPassword,String password)
        throws UnsupportedEncodingException {
      String recode=Util.LSBDecryption(image1,uPassword);
      System.out.println("密文"+recode);

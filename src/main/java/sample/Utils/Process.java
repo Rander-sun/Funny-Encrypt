@@ -7,8 +7,19 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * 过程
+ *
+ * @author Hasee
+ * @date 2021/06/12
+ */
 public class Process{
-    //处理RGBs,输出加密/解密后的图片
+
+    /**
+     * 创建结果图片
+     *
+     * @param src src
+     *///处理RGBs,输出加密/解密后的图片
     public void CreateResultPic(Pic src){
         String newName="result"+src.getImageName();
         src.setImageName(newName);
@@ -20,7 +31,14 @@ public class Process{
         }
     }
 
-    //加解密时使用，选择法排序，同时生成地址映射表
+    /**
+     * 选择排序
+     *
+     * @param arr         加勒比海盗
+     * @param length      长度
+     * @param m           米
+     * @param address_arr 地址加勒比海盗
+     *///加解密时使用，选择法排序，同时生成地址映射表
     public static void SelectSort(double[] arr, int length, HashMap<Double, Integer> m, int[] address_arr) {
         if (arr == null || length <= 0)return;
         int index = 0;
@@ -41,7 +59,13 @@ public class Process{
         }
     }
 
-    //生成一个混沌序列，以x为初值
+    /**
+     * 生产物流的数组
+     *
+     * @param x   x
+     * @param arr 加勒比海盗
+     * @param N   n
+     *///生成一个混沌序列，以x为初值
     public static void produce_logisticArray(double x, double[] arr, int N) {
         double u = 3.9999999;
         arr[0] = x;
@@ -50,7 +74,13 @@ public class Process{
         }
     }
 
-    //通过混沌序列，生成 值-下标 的反向映射
+    /**
+     * 生产图
+     *
+     * @param m              米
+     * @param logistic_array 逻辑阵列
+     * @param N              n
+     *///通过混沌序列，生成 值-下标 的反向映射
     public static void produce_map(HashMap<Double, Integer> m, double[] logistic_array, int N) {
         for (int i = 0; i < N; ++i) {
             m.put(logistic_array[i], i);
@@ -58,7 +88,16 @@ public class Process{
 
     }
 
-    //行置乱算法
+    /**
+     * 行加密
+     *
+     * @param pixel 像素
+     * @param x1    x1
+     * @param i     我
+     * @param M     米
+     * @param N     n
+     * @return double
+     *///行置乱算法
     public double rowEncrypt(int[][] pixel, double x1, int i, int M, int N) {
         ArrayFunctions af=new ArrayFunctions();
         double[] logistic_array = new double[N] ;
@@ -77,7 +116,14 @@ public class Process{
         return logistic_array[N - 1];
     }
 
-    //行置乱接口
+    /**
+     * 行加密接口
+     *
+     * @param pixel 像素
+     * @param x1    x1
+     * @param M     米
+     * @param N     n
+     *///行置乱接口
     public void rowEncrypt_interface(int[][] pixel, double x1, int M, int N)
     {
         double x = x1;
@@ -86,7 +132,16 @@ public class Process{
         }
     }
 
-    //列置乱算法
+    /**
+     * 列加密
+     *
+     * @param pixel 像素
+     * @param x1    x1
+     * @param i     我
+     * @param M     米
+     * @param N     n
+     * @return double
+     *///列置乱算法
     public double columnEncrypt(int[][] pixel, double x1, int i, int M, int N)
     {
         ArrayFunctions af=new ArrayFunctions();
@@ -106,7 +161,14 @@ public class Process{
         return logistic_array[N - 1];
     }
 
-    //列置乱接口
+    /**
+     * 列加密接口
+     *
+     * @param pixel 像素
+     * @param x1    x1
+     * @param M     米
+     * @param N     n
+     *///列置乱接口
     public void columnEncrypt_interface(int[][] pixel, double x1, int M, int N) {
         ArrayFunctions af=new ArrayFunctions();
         int[][] temp =new int[N][M];
@@ -122,7 +184,15 @@ public class Process{
         }
     }
 
-    //行解密算法
+    /**
+     * 行解密
+     *
+     * @param pixel 像素
+     * @param x1    x1
+     * @param i     我
+     * @param N     n
+     * @return double
+     *///行解密算法
     public double rowDecrypt(int[][] pixel, double x1, int i, int N)
     {
         ArrayFunctions af=new ArrayFunctions();
@@ -142,7 +212,14 @@ public class Process{
         return logistic_array[N - 1];
     }
 
-    //行解密接口
+    /**
+     * 行解密接口
+     *
+     * @param pixel 像素
+     * @param x1    x1
+     * @param M     米
+     * @param N     n
+     *///行解密接口
     public void rowDecrypt_interface(int[][] pixel, double x1, int M, int N) {
         double x = x1;
         for (int i = 0; i < M; ++i) {
@@ -150,7 +227,16 @@ public class Process{
         }
     }
 
-    //列解密算法
+    /**
+     * 列解密
+     *
+     * @param pixel 像素
+     * @param x1    x1
+     * @param i     我
+     * @param M     米
+     * @param N     n
+     * @return double
+     *///列解密算法
     public double columnDecrypt(int[][] pixel, double x1, int i, int M, int N)
     {
         ArrayFunctions af=new ArrayFunctions();
@@ -170,7 +256,14 @@ public class Process{
         return logistic_array[N - 1];
     }
 
-    //列解密接口
+    /**
+     * 列解密接口
+     *
+     * @param pixel 像素
+     * @param x1    x1
+     * @param M     米
+     * @param N     n
+     *///列解密接口
     public void columnDecrypt_interface(int[][] pixel, double x1, int M, int N) {
         ArrayFunctions af=new ArrayFunctions();
         int[][] temp =new int[N][M];
@@ -187,13 +280,27 @@ public class Process{
         }
     }
 
-    //置乱
+    /**
+     * 加密
+     *
+     * @param pixel 像素
+     * @param x1    x1
+     * @param M     米
+     * @param N     n
+     *///置乱
     public void encrypt(int[][] pixel, double x1, int M, int N) {
         rowEncrypt_interface(pixel, x1, M, N);
         columnEncrypt_interface(pixel, x1, M, N);
     }
 
-    //解密
+    /**
+     * 解密
+     *
+     * @param pixel 像素
+     * @param x1    x1
+     * @param M     米
+     * @param N     n
+     *///解密
     public void decrypt(int[][] pixel, double x1, int M, int N) {
         columnDecrypt_interface(pixel, x1, M, N);
         rowDecrypt_interface(pixel, x1, M, N);

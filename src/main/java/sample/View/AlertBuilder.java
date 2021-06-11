@@ -25,6 +25,12 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 
+/**
+ * 警报建设者
+ *
+ * @author Hasee
+ * @date 2021/06/12
+ */
 public class AlertBuilder {
   private String title, message;
   private JFXButton btn = null;
@@ -36,25 +42,55 @@ public class AlertBuilder {
   private OnInputListener onInputListener = null;
 
 
+  /**
+   * 警报建设者
+   *
+   * @param control 控制
+   */
   public AlertBuilder(Control control) {
     window = control.getScene().getWindow();
   }
 
+  /**
+   * 设置标题
+   *
+   * @param title 标题
+   * @return {@link AlertBuilder}
+   */
   public AlertBuilder setTitle(String title) {
     this.title = title;
     return this;
   }
 
+  /**
+   * 设置消息
+   *
+   * @param message 消息
+   * @return {@link AlertBuilder}
+   */
   public AlertBuilder setMessage(String message) {
     this.message = message;
     return this;
   }
 
+  /**
+   * 设置btn
+   *
+   * @param btnText btn文本
+   * @return {@link AlertBuilder}
+   */
   public AlertBuilder setBtn(String btnText) {
     return setBtn(btnText, null);
   }
 
 
+  /**
+   * 设置btn
+   *
+   * @param positiveBtnText    积极btn文本
+   * @param btnOnclickListener btn onclick侦听器
+   * @return {@link AlertBuilder}
+   */
   public AlertBuilder setBtn(String positiveBtnText, @Nullable OnClickListener btnOnclickListener) {
     btn = new JFXButton(positiveBtnText);
     btn.setDefaultButton(true);
@@ -68,6 +104,12 @@ public class AlertBuilder {
     return this;
   }
 
+  /**
+   * 设置链接
+   *
+   * @param text 文本
+   * @return {@link AlertBuilder}
+   */
   public AlertBuilder setLink(String text) {
     hyperlink = new Hyperlink(text);
     hyperlink.setBorder(Border.EMPTY);
@@ -89,6 +131,13 @@ public class AlertBuilder {
     return this;
   }
 
+  /**
+   * 设置文本框
+   *
+   * @param onInputListener 在输入监听器
+   * @param message         消息
+   * @return {@link AlertBuilder}
+   */
   public AlertBuilder setTextField(OnInputListener onInputListener,String message) {
     this.textField = new TextField();
     textField.setText(message);
@@ -97,6 +146,11 @@ public class AlertBuilder {
   }
 
 
+  /**
+   * 创建
+   *
+   * @return {@link JFXAlert<String>}
+   */
   public JFXAlert<String> create() {
     alert = new JFXAlert<>((Stage) (window));
     alert.initModality(Modality.APPLICATION_MODAL);
@@ -131,11 +185,33 @@ public class AlertBuilder {
   }
 
 
+  /**
+   * 在点击监听器
+   *
+   * @author Hasee
+   * @date 2021/06/12
+   */
   public interface OnClickListener {
+
+    /**
+     * 在点击
+     */
     void onClick();
   }
 
+  /**
+   * 在输入监听器
+   *
+   * @author Hasee
+   * @date 2021/06/12
+   */
   public interface OnInputListener {
+
+    /**
+     * 得到文本
+     *
+     * @param result 结果
+     */
     void onGetText(String result);
   }
 

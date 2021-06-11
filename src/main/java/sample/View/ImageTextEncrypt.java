@@ -24,58 +24,125 @@ import sample.Entity.MyImage;
 
 import javax.imageio.ImageIO;
 
+
+/**
+ * 图像文本加密
+ *
+ * @author Hasee
+ * @date 2021/06/12
+ */
 public class ImageTextEncrypt {
   private AnchorPane an = new AnchorPane();
   private HBox img=new HBox();
   private VBox form =new VBox();
   private ImageView iv = new ImageView();
 
+  /**
+   * 得到缓冲图像
+   *
+   * @return {@link BufferedImage}
+   */
   public BufferedImage getBufferedImage() {
     return bufferedImage;
   }
 
+  /**
+   * 设置缓冲图片
+   *
+   * @param bufferedImage 缓冲图像
+   */
   public void setBufferedImage(BufferedImage bufferedImage) {
     this.bufferedImage = bufferedImage;
   }
 
   private BufferedImage bufferedImage;
 
+  /**
+   * 得到一个Pane
+   *
+   * @return {@link AnchorPane}
+   */
   public AnchorPane getAn() {
     return an;
   }
 
+  /**
+   * 设置一个Pane
+   *
+   * @param an AnchorPane实例
+   */
   public void setAn(AnchorPane an) {
     this.an = an;
   }
 
+  /**
+   * 得到img
+   *
+   * @return {@link HBox}
+   */
   public HBox getImg() {
     return img;
   }
 
+  /**
+   * 设置img
+   *
+   * @param img img
+   */
   public void setImg(HBox img) {
     this.img = img;
   }
 
+  /**
+   * 获得表单
+   *
+   * @return {@link VBox}
+   */
   public VBox getForm() {
     return form;
   }
 
+  /**
+   * 设置形式
+   *
+   * @param form 表单
+   */
   public void setForm(VBox form) {
     this.form = form;
   }
 
+  /**
+   * 获得图片
+   *
+   * @return {@link ImageView}
+   */
   public ImageView getIv() {
     return iv;
   }
 
+  /**
+   * 设置图片
+   *
+   * @param iv 图片
+   */
   public void setIv(ImageView iv) {
     this.iv = iv;
   }
 
+  /**
+   * 得到图像
+   *
+   * @return {@link BufferedImage}
+   */
   public BufferedImage getImage() {
     return bufferedImage;
   }
 
+  /**
+   * 设置缓冲形象图片
+   *
+   * @param image 图像
+   */
   public void setBufferedImageImage(BufferedImage image) {
     this.bufferedImage = image;
   }
