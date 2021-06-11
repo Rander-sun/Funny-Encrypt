@@ -23,12 +23,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 public class ImageFileEncryption {
     private AnchorPane an = new AnchorPane();
@@ -82,6 +80,7 @@ public class ImageFileEncryption {
         an.getStyleClass().add("ImageFilePane");
         file.setPrefSize(1100,910);
         file.setStyle("-fx-background-color: #EEE9E9");
+        file.setAlignment(Pos.CENTER);
         iv.setPreserveRatio(true);
         iv.setFitWidth(1100);
         iv.setFitHeight(910);
@@ -94,9 +93,11 @@ public class ImageFileEncryption {
         //final Button openButton2 = new Button("选择解密文件");
         JFXTooltip tooltip1=new JFXTooltip("操作提示：\n将图片拖入左侧灰色框内\n在文件框内浏览或拖拽文件\n在密码框中输入自定的密码\n复制弹出框生成的密码\n在文件源目录获取加密好的图片（覆盖原图）和ENC文件");
         JFXButton tipBtn=new JFXButton("提示");
+        tipBtn.getStyleClass().add("button1-raised");
         tipBtn.setTooltip(tooltip1);
         JFXTooltip tooltip2=new JFXTooltip("操作提示：\n解密时用对应的ENC文件\n输入程序加密时输出的密钥解密\n在ENC文件源目录获取解密后的DEC文件");
         JFXButton tipBtn2=new JFXButton("提示");
+        tipBtn2.getStyleClass().add("button1-raised");
         tipBtn2.setTooltip(tooltip2);
 
         Text tip0=new Text();
@@ -147,12 +148,19 @@ public class ImageFileEncryption {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Alert alert=new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("加密结果");
-            alert.setHeaderText("Congratulations!Encryption Success!");
-            alert.setContentText(msg);
-            alert.getDialogPane().getButtonTypes().add(new ButtonType("复制密钥",ButtonBar.ButtonData.OK_DONE));
-            alert.showAndWait();
+            new AlertBuilder(confirmButton1).setTitle("提示").setTextField(new AlertBuilder.OnInputListener(){
+                @Override
+                public void onGetText(String result) {
+                    //返回一个输入结果result
+                    //相关的逻辑操作
+                }
+            },msg).setBtn("确定").create();
+            //Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            //alert.setTitle("加密结果");
+            //alert.setHeaderText("Congratulations!Encryption Success!");
+            //alert.setContentText(msg);
+            //alert.getDialogPane().getButtonTypes().add(new ButtonType("复制密钥",ButtonBar.ButtonData.OK_DONE));
+            //alert.showAndWait();
         });
 
         confirmButton2.setOnAction(event->{
@@ -168,11 +176,12 @@ public class ImageFileEncryption {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Alert alert=new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("解密结果");
-            alert.setHeaderText("Congratulations!Decryption Success!");
-            alert.setContentText("解密文件 "+nFileName+" 已在目录 "+file.getParent()+"下");
-            alert.showAndWait();
+            new AlertBuilder(confirmButton2).setLink(file.getParent()).setMessage("解密文件"+nFileName+"已在目录").setBtn("确认").create();
+            //Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            //alert.setTitle("解密结果");
+            //alert.setHeaderText("Congratulations!Decryption Success!");
+            //alert.setContentText("解密文件 "+nFileName+" 已在目录 "+file.getParent()+"下");
+            //alert.showAndWait();
         });
 
         form.getChildren().addAll(tipBtn,fileTip,filesBox1,codeTip, code,confirmButton1,separator,tipBtn2,fileDecTip,filesBox2,codeDecText,decode,confirmButton2);

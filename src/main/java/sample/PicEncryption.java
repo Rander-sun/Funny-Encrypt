@@ -1,6 +1,7 @@
 package sample;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTooltip;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -65,11 +66,16 @@ public class PicEncryption {
         an.getStyleClass().add("PicPane");
         file.setPrefSize(1100,910);
         file.setStyle("-fx-background-color: #EEE9E9");
+        file.setAlignment(Pos.CENTER);
         iv.setPreserveRatio(true);
         iv.setFitWidth(1100);
         iv.setFitHeight(910);
         file.getChildren().add(iv);
         form.getStyleClass().add("RightForm");
+        JFXTooltip tooltip1=new JFXTooltip("操作提示：\n将图片拖入左侧灰色框内\n在文本框内输入加密参数\n注意，加密参数必须是0-1之间的小数\n否则无法加密\n在应用根目录获取加密好的图片\n输入加密时的加密参数以解密");
+        JFXButton tipBtn=new JFXButton("提示");
+        tipBtn.getStyleClass().add("button1-raised");
+        tipBtn.setTooltip(tooltip1);
         Text tip0=new Text();
         tip0.setText("操作提示：\n将图片拖入左侧灰色框内\n在文本框内输入加密参数，点击加密\n注意，加密参数必须是0-1之间的小数\n否则无法加密\n在应用根目录获取加密好的图片\n解密时，输入加密时的加密参数");
         //选择文件
@@ -118,8 +124,9 @@ public class PicEncryption {
                 pic=new Pic(Constants.IMAGENAME);
             }
             PicEncryptionController.en(pic,Double.parseDouble(String.valueOf(code.getText())));
-            Alert alert=new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Congratulations!Encryption Success!");
+            new AlertBuilder(confirmButton2).setMessage("加密成功！").setBtn("确认").create();
+            //Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            //alert.setHeaderText("Congratulations!Encryption Success!");
         });
 
         confirmButton2.setOnAction(event->{
@@ -131,15 +138,16 @@ public class PicEncryption {
                 pic=new Pic(Constants.IMAGENAME);
             }
             PicEncryptionController.de(pic,Double.parseDouble(String.valueOf(decode.getText())));
-            Alert alert=new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Congratulations!Decryption Success!");
+            new AlertBuilder(confirmButton2).setMessage("解密成功！").setBtn("确认").create();
+            //Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            //alert.setHeaderText("Congratulations!Decryption Success!");
         });
 
-        form.getChildren().addAll(fileTip,filesBox1,codeTip, code,confirmButton1,separator,fileDecTip,filesBox2,codeDecText,decode,confirmButton2);
+        form.getChildren().addAll(tipBtn,fileTip,filesBox1,codeTip, code,confirmButton1,separator,fileDecTip,filesBox2,codeDecText,decode,confirmButton2);
         form.setAlignment(Pos.CENTER);
         form.setSpacing(20);
         an.setLeftAnchor(file,2.0);
-        an.setTopAnchor(form,200.0);
+        an.setTopAnchor(form,100.0);
         an.setRightAnchor(form,50.0);
         an.getChildren().addAll(file,form);
         return an;

@@ -1,24 +1,15 @@
 package sample;
 
-import com.jfoenix.controls.JFXAlert;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTooltip;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,7 +19,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javax.imageio.ImageIO;
-import sample.DialogBuilder.OnInputListener;
 
 public class ImageTextEncrypt {
   private AnchorPane an = new AnchorPane();
@@ -105,6 +95,7 @@ public class ImageTextEncrypt {
     form.getStyleClass().add("RightForm");
     JFXTooltip tooltip1=new JFXTooltip("操作提示：\n请将图片拖入左侧灰色框内\n在密码框中输入自定的密码\n复制密码\n在应用根目录获取加密好的图片\n输入自定的密码和程序输出的密码解密");
     JFXButton tipBtn=new JFXButton("提示");
+    tipBtn.getStyleClass().add("button1-raised");
     tipBtn.setTooltip(tooltip1);
 
     Text tip0=new Text();
@@ -130,13 +121,13 @@ public class ImageTextEncrypt {
       } catch (IOException e) {
         e.printStackTrace();
       }
-      new DialogBuilder(encryptBtn).setTitle("提示").setTextFieldText(new DialogBuilder.OnInputListener(){
+      new AlertBuilder(encryptBtn).setTitle("提示").setTextField(new AlertBuilder.OnInputListener(){
         @Override
         public void onGetText(String result) {
           //返回一个输入结果result
           //相关的逻辑操作
         }
-      },message).setPositiveBtn("确定").create();
+      },message).setBtn("确定").create();
       //Alert alert = new Alert(AlertType.NONE);
       //alert.setTitle("加密结果");
       //alert.setContentText(message);
@@ -158,11 +149,12 @@ public class ImageTextEncrypt {
       MyImage image=new MyImage();
       image.setimage(bufferedImage);
       String message=ImageTextController.btnDecode(password2.getText(),password3.getText(),image);
-      Alert alert = new Alert(AlertType.NONE);
-      alert.setTitle("解密结果");
-      alert.setContentText(message);
-      alert.getDialogPane().getButtonTypes().add(new ButtonType("确认", ButtonBar.ButtonData.OK_DONE));
-      alert.showAndWait();
+      new AlertBuilder(decryptBtn).setMessage(message).setBtn("确认").create();
+      //Alert alert = new Alert(AlertType.NONE);
+      //alert.setTitle("解密结果");
+      //alert.setContentText(message);
+      //alert.getDialogPane().getButtonTypes().add(new ButtonType("确认", ButtonBar.ButtonData.OK_DONE));
+      //alert.showAndWait();
     });
     form.setAlignment(Pos.CENTER);
     form.getChildren().addAll(tipBtn,tip1,textToEncrypt,tip2,password1,encryptBtn,separator,tip3,password2,tip4,password3,decryptBtn);

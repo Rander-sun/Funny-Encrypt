@@ -74,6 +74,7 @@ public class VideoEncryptionPage {
         //初始化学
         videoFrame.setPrefSize(1100,910);
         videoFrame.setStyle("-fx-background-color: #EEE9E9");
+        videoFrame.setAlignment(Pos.CENTER);
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(1100);
         imageView.setFitHeight(910);
@@ -92,10 +93,12 @@ public class VideoEncryptionPage {
 
         JFXTooltip tooltip1=new JFXTooltip("操作提示：\n文件框内浏览或拖拽视频文件\n在密码框中输入自定的密码，点击加密\n在应用根目录获取加密好的ENC文件以及相关解密信息\n(也可以加密其他类型文件)");
         JFXButton tipBtn=new JFXButton("提示");
+        tipBtn.getStyleClass().add("button1-raised");
         tipBtn.setTooltip(tooltip1);
 
         JFXTooltip tooltip2=new JFXTooltip("操作提示：\n解密时，输入程序加密时输出的密钥与密文\n点击解密后\n在原加密文件目录下获取解密好的_DEC文件\n");
         JFXButton tipBtn2=new JFXButton("提示");
+        tipBtn2.getStyleClass().add("button1-raised");
         tipBtn2.setTooltip(tooltip2);
 
         Text tip0=new Text();
@@ -136,27 +139,29 @@ public class VideoEncryptionPage {
             File file =new File(filePath.getText());
             String nFileName=Util.changeEncName(file);
             VideoEncryptionController.Enc(filePath.getText(),code.getText());
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("加密结果");
-            alert.setHeaderText("Congratulations!Encryption Success!");
-            alert.setContentText("请前往源文件目录下获取加密文件"+nFileName+"和加密信息");
+            new AlertBuilder(confirmButton2).setMessage("请前往源文件目录下获取加密文件"+nFileName+"和加密信息").setBtn("确认").create();
+            //Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            //alert.setTitle("加密结果");
+            //alert.setHeaderText("Congratulations!Encryption Success!");
+            //alert.setContentText("请前往源文件目录下获取加密文件"+nFileName+"和加密信息");
         });
 
         confirmButton2.setOnAction(event -> {
             File file =new File(filePath2.getText());
             String nFileName=Util.changeDecName(file);
             VideoEncryptionController.Dec(filePath2.getText(),decode.getText(),prikeyText.getText());
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("加密结果");
-            alert.setHeaderText("Congratulations!Encryption Success!");
-            alert.setContentText("请前往源文件目录下获取解密文件:"+nFileName);
+            new AlertBuilder(confirmButton2).setMessage("请前往源文件目录下获取解密文件"+nFileName).setBtn("确认").create();
+            //Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            //alert.setTitle("加密结果");
+            //alert.setHeaderText("Congratulations!Encryption Success!");
+            //alert.setContentText("请前往源文件目录下获取解密文件:"+nFileName);
         });
 
         form.getChildren().addAll(tipBtn,fileTip,filesBox1,codeTip, code,confirmButton1,separator,tipBtn2,fileDecTip,filesBox2,codeDecText,decode,privateKey,prikeyText,confirmButton2);
         form.setAlignment(Pos.CENTER);
         form.setSpacing(20);
         an.setLeftAnchor(videoFrame,2.0);
-        an.setTopAnchor(form,150.0);
+        an.setTopAnchor(form,100.0);
         an.setRightAnchor(form,50.0);
         an.getChildren().addAll(videoFrame,form);
 

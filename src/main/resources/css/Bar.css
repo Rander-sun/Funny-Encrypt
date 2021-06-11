@@ -54,6 +54,15 @@
     -fx-pref-height: 40;
     -fx-text-fill: WHITE;
 }
+.button1-raised{
+    -fx-padding: 0.7em 0.5em;
+    -fx-font-size: 16px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: #efeeee;
+    -fx-pref-width: 70;
+    -fx-pref-height: 40;
+    -fx-text-fill: BLACK;
+}
 .button2-raised{
     -fx-padding: 0.7em 0.5em;
     -fx-font-size: 12px;
