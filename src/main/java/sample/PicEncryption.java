@@ -1,7 +1,9 @@
 package sample;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -62,14 +64,14 @@ public class PicEncryption {
     public Pane ImagePane(){
         an.getStyleClass().add("PicPane");
         file.setPrefSize(1100,910);
-        file.setStyle("-fx-background-color: #D3D3D3");
+        file.setStyle("-fx-background-color: #EEE9E9");
         iv.setPreserveRatio(true);
         iv.setFitWidth(1100);
         iv.setFitHeight(910);
         file.getChildren().add(iv);
         form.getStyleClass().add("RightForm");
         Text tip0=new Text();
-        tip0.setText("操作提示：\n将图片拖入左侧灰色框内\n在文本框内输入加密参数，点击加密\n在应用根目录获取加密好的图片\n解密时，输入加密时的加密参数");
+        tip0.setText("操作提示：\n将图片拖入左侧灰色框内\n在文本框内输入加密参数，点击加密\n注意，加密参数必须是0-1之间的小数\n否则无法加密\n在应用根目录获取加密好的图片\n解密时，输入加密时的加密参数");
         //选择文件
 
         final FileChooser fileChooser=new FileChooser();
@@ -100,8 +102,10 @@ public class PicEncryption {
         filePath2.setText("拖拽/浏览文件以输入");
         ChooseFile(filePath2,openButton2,fileChooser);
         filesBox2.getChildren().addAll(filePath2,openButton2);
-        Button confirmButton1=new Button("确认加密");
-        Button confirmButton2=new Button("确认解密");
+        JFXButton confirmButton1=new JFXButton("确认加密");
+        confirmButton1.getStyleClass().add("button-raised");
+        JFXButton confirmButton2=new JFXButton("确认解密");
+        confirmButton2.getStyleClass().add("button2-raised");
 
         //对应加密controller
 
@@ -131,10 +135,9 @@ public class PicEncryption {
             alert.setHeaderText("Congratulations!Decryption Success!");
         });
 
-        form.getChildren().addAll(tip0,fileTip,filesBox1,codeTip, code,confirmButton1,separator,fileDecTip,filesBox2,codeDecText,decode,confirmButton2);
-
-
-        form.setSpacing(10);
+        form.getChildren().addAll(fileTip,filesBox1,codeTip, code,confirmButton1,separator,fileDecTip,filesBox2,codeDecText,decode,confirmButton2);
+        form.setAlignment(Pos.CENTER);
+        form.setSpacing(20);
         an.setLeftAnchor(file,2.0);
         an.setTopAnchor(form,200.0);
         an.setRightAnchor(form,50.0);

@@ -1,7 +1,9 @@
 package sample;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -70,7 +72,7 @@ public class VideoEncryptionPage {
         an.getStyleClass().add("ImagePane");
         //初始化学
         videoFrame.setPrefSize(1100,910);
-        videoFrame.setStyle("-fx-background-color: #D3D3D3");
+        videoFrame.setStyle("-fx-background-color: #EEE9E9");
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(1100);
         imageView.setFitHeight(910);
@@ -116,9 +118,10 @@ public class VideoEncryptionPage {
         filePath2.setText("拖拽/浏览文件以输入");
         ChooseFile2(filePath2,openButton2,fileChooser);
         filesBox2.getChildren().addAll(filePath2,openButton2);
-        Button confirmButton1=new Button("确认加密");
-
-        Button confirmButton2=new Button("确认解密");
+        JFXButton confirmButton1=new JFXButton("确认加密");
+        confirmButton1.getStyleClass().add("button-raised");
+        JFXButton confirmButton2=new JFXButton("确认解密");
+        confirmButton2.getStyleClass().add("button2-raised");
 
         confirmButton1.setOnAction(event -> {
             File file =new File(filePath.getText());
@@ -141,9 +144,10 @@ public class VideoEncryptionPage {
         });
 
         form.getChildren().addAll(fileTip,filesBox1,codeTip, code,confirmButton1,separator,fileDecTip,filesBox2,codeDecText,decode,privateKey,prikeyText,confirmButton2);
-        form.setSpacing(10);
+        form.setAlignment(Pos.CENTER);
+        form.setSpacing(20);
         an.setLeftAnchor(videoFrame,2.0);
-        an.setTopAnchor(form,200.0);
+        an.setTopAnchor(form,150.0);
         an.setRightAnchor(form,50.0);
         an.getChildren().addAll(videoFrame,form);
 

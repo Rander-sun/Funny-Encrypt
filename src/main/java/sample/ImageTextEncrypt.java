@@ -1,7 +1,9 @@
 package sample;
 
 import com.jfoenix.controls.JFXAlert;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSnackbar;
+import com.jfoenix.controls.JFXTooltip;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,6 +28,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javax.imageio.ImageIO;
+import sample.DialogBuilder.OnInputListener;
 
 public class ImageTextEncrypt {
   private AnchorPane an = new AnchorPane();
@@ -90,9 +93,9 @@ public class ImageTextEncrypt {
 
     //img.getStyleClass().add("Image");
     img.setPrefSize(1100,910);
-    img.setStyle("-fx-background-color: #D3D3D3");
+    img.setStyle("-fx-background-color: #EEE9E9");
     Tooltip tooltip=new Tooltip();
-    tooltip.setText("请把图片拖拽到这里");
+    //tooltip.setText("请把图片拖拽到这里");
     img.setAlignment(Pos.CENTER);
     iv.setPreserveRatio(true);
     iv.setFitWidth(1100);
@@ -100,16 +103,21 @@ public class ImageTextEncrypt {
     img.getChildren().addAll(iv);
 
     form.getStyleClass().add("RightForm");
+    JFXTooltip tooltip1=new JFXTooltip("操作提示：\n请将图片拖入左侧灰色框内\n在密码框中输入自定的密码\n复制密码\n在应用根目录获取加密好的图片\n输入自定的密码和程序输出的密码解密");
+    JFXButton tipBtn=new JFXButton("提示");
+    tipBtn.setTooltip(tooltip1);
+
     Text tip0=new Text();
-    tip0.setText("操作提示：\n将图片拖入左侧灰色框内\n在文本框内输入需要加密的文字\n在密码框中输入自定的密码，点击加密\n点击弹窗点击ctrl+c复制密码\n在应用根目录获取加密好的图片\n解密时，输入自定的密码和程序输出的密码");
+    //tip0.setText("操作提示：\n将图片拖入左侧灰色框内\n在文本框内输入需要加密的文字\n在密码框中输入自定的密码，点击加密\n点击弹窗点击ctrl+c复制密码\n在应用根目录获取加密好的图片\n解密时，输入自定的密码和程序输出的密码");
     Text tip1 = new Text();
     tip1.setText("请输入需要加密的文字");
     TextArea textToEncrypt=new TextArea();
     Text tip2 = new Text();
     tip2.setText("请输入设置的密码");
     PasswordField password1=new PasswordField();
-    Button encryptBtn=new Button();
-    encryptBtn.setText("加密");
+    JFXButton encryptBtn=new JFXButton("确认加密");
+    encryptBtn.getStyleClass().add("button-raised");
+
 
     encryptBtn.setOnAction(event -> {
       MyImage image=new MyImage();
@@ -122,11 +130,18 @@ public class ImageTextEncrypt {
       } catch (IOException e) {
         e.printStackTrace();
       }
-      Alert alert = new Alert(AlertType.NONE);
-      alert.setTitle("加密结果");
-      alert.setContentText(message);
-      alert.getDialogPane().getButtonTypes().add(new ButtonType("确认", ButtonBar.ButtonData.OK_DONE));
-      alert.showAndWait();
+      new DialogBuilder(encryptBtn).setTitle("提示").setTextFieldText(new DialogBuilder.OnInputListener(){
+        @Override
+        public void onGetText(String result) {
+          //返回一个输入结果result
+          //相关的逻辑操作
+        }
+      },message).setPositiveBtn("确定").create();
+      //Alert alert = new Alert(AlertType.NONE);
+      //alert.setTitle("加密结果");
+      //alert.setContentText(message);
+      //alert.getDialogPane().getButtonTypes().add(new ButtonType("确认", ButtonBar.ButtonData.OK_DONE));
+      //alert.showAndWait();
     });
 
     Separator separator=new Separator();
@@ -136,8 +151,8 @@ public class ImageTextEncrypt {
     Text tip4 = new Text();
     tip4.setText("请输入程序输出的密码");
     PasswordField password3=new PasswordField();
-    Button decryptBtn=new Button();
-    decryptBtn.setText("解密");
+    JFXButton decryptBtn=new JFXButton("确认解密");
+    decryptBtn.getStyleClass().add("button2-raised");
 
     decryptBtn.setOnAction(event -> {
       MyImage image=new MyImage();
@@ -149,11 +164,12 @@ public class ImageTextEncrypt {
       alert.getDialogPane().getButtonTypes().add(new ButtonType("确认", ButtonBar.ButtonData.OK_DONE));
       alert.showAndWait();
     });
-    form.getChildren().addAll(tip0,tip1,textToEncrypt,tip2,password1,encryptBtn,separator,tip3,password2,tip4,password3,decryptBtn);
-    form.setSpacing(30);
+    form.setAlignment(Pos.CENTER);
+    form.getChildren().addAll(tipBtn,tip1,textToEncrypt,tip2,password1,encryptBtn,separator,tip3,password2,tip4,password3,decryptBtn);
+    form.setSpacing(20);
     an.setLeftAnchor(img,2.0);
-    an.setTopAnchor(form,200.0);
-    an.setRightAnchor(form,20.0);
+    an.setTopAnchor(form,100.0);
+    an.setRightAnchor(form,40.0);
     an.getChildren().addAll(img,form);
     return an;
   }
