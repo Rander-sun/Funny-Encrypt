@@ -27,6 +27,8 @@ public class PicEncryption {
     public AnchorPane getAn() {
         return an;
     }
+    private VBox form =new VBox();
+    private ImageView iv = new ImageView();
 
     public void setAn(AnchorPane an) {
         this.an = an;
@@ -56,8 +58,7 @@ public class PicEncryption {
         this.iv = iv;
     }
 
-    private VBox form =new VBox();
-    private ImageView iv = new ImageView();
+
 
     //返回TAB1的内容
     public Pane ImagePane(){
@@ -69,6 +70,8 @@ public class PicEncryption {
         iv.setFitHeight(910);
         file.getChildren().add(iv);
         form.getStyleClass().add("RightForm");
+        Text tip0=new Text();
+        tip0.setText("操作提示：\n将图片拖入左侧灰色框内\n在文本框内输入加密参数，点击加密\n注意，加密参数必须是0-1之间的小数\n否则无法加密\n在应用根目录获取加密好的图片\n解密时，输入加密时的加密参数");
         //选择文件
 
         final FileChooser fileChooser=new FileChooser();
@@ -107,14 +110,26 @@ public class PicEncryption {
         //对应加密controller
 
         confirmButton1.setOnAction(event->{
-            Pic pic=new Pic(filePath.getText());
+            Pic pic;
+            if(Constants.IMAGENAME.equals("IMAGE.png")){
+                pic=new Pic(filePath.getText());
+            }
+            else{
+                pic=new Pic(Constants.IMAGENAME);
+            }
             PicEncryptionController.en(pic,Double.parseDouble(String.valueOf(code.getText())));
             Alert alert=new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Congratulations!Encryption Success!");
         });
 
         confirmButton2.setOnAction(event->{
-            Pic pic=new Pic(filePath2.getText());
+            Pic pic;
+            if(Constants.IMAGENAME.equals("IMAGE.png")){
+                pic=new Pic(filePath2.getText());
+            }
+            else{
+                pic=new Pic(Constants.IMAGENAME);
+            }
             PicEncryptionController.de(pic,Double.parseDouble(String.valueOf(decode.getText())));
             Alert alert=new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Congratulations!Decryption Success!");
