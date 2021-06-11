@@ -133,7 +133,7 @@ public class VideoEncryptionPage {
         confirmButton2.setOnAction(event -> {
             File file =new File(filePath2.getText());
             String nFileName=Util.changeDecName(file);
-            VideoEncryptionController.Dec(filePath.getText(),decode.getText(),prikeyText.getText());
+            VideoEncryptionController.Dec(filePath2.getText(),decode.getText(),prikeyText.getText());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("加密结果");
             alert.setHeaderText("Congratulations!Encryption Success!");

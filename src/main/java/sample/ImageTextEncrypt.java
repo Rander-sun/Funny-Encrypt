@@ -32,6 +32,15 @@ public class ImageTextEncrypt {
   private HBox img=new HBox();
   private VBox form =new VBox();
   private ImageView iv = new ImageView();
+
+  public BufferedImage getBufferedImage() {
+    return bufferedImage;
+  }
+
+  public void setBufferedImage(BufferedImage bufferedImage) {
+    this.bufferedImage = bufferedImage;
+  }
+
   private BufferedImage bufferedImage;
 
   public AnchorPane getAn() {

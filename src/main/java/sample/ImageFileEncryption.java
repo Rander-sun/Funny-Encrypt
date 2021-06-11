@@ -30,6 +30,15 @@ import java.util.logging.Logger;
 public class ImageFileEncryption {
     private AnchorPane an = new AnchorPane();
     private HBox file=new HBox();
+
+    public BufferedImage getBufferedImage() {
+        return bufferedImage;
+    }
+
+    public void setBufferedImage(BufferedImage bufferedImage) {
+        this.bufferedImage = bufferedImage;
+    }
+
     private BufferedImage bufferedImage;
     public AnchorPane getAn() {
         return an;
@@ -120,8 +129,9 @@ public class ImageFileEncryption {
             File imagefile=new File(Constants.IMAGENAME);
             String msg=ImageFileController.encBtn(image,filePath.getText(),code.getText());
             try {
-                bufferedImage= ImageIO.read(file);
-                iv.setImage(new Image((new FileInputStream(file))));
+                bufferedImage= ImageIO.read(imagefile);
+                iv.setImage(new Image((new FileInputStream(imagefile))));
+                System.out.println(imagefile.getAbsolutePath());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -130,6 +140,7 @@ public class ImageFileEncryption {
             alert.setHeaderText("Congratulations!Encryption Success!");
             alert.setContentText(msg);
             alert.getDialogPane().getButtonTypes().add(new ButtonType("复制密钥",ButtonBar.ButtonData.OK_DONE));
+            alert.showAndWait();
         });
 
         confirmButton2.setOnAction(event->{
@@ -149,6 +160,7 @@ public class ImageFileEncryption {
             alert.setTitle("解密结果");
             alert.setHeaderText("Congratulations!Decryption Success!");
             alert.setContentText("解密文件 "+nFileName+" 已在目录 "+file.getParent()+"下");
+            alert.showAndWait();
         });
 
         form.getChildren().addAll(tip0,fileTip,filesBox1,codeTip, code,confirmButton1,separator,fileDecTip,filesBox2,codeDecText,decode,confirmButton2);
