@@ -129,7 +129,7 @@ public class VideoEncryptionPage {
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(1100);
         imageView.setFitHeight(910);
-        imageView.setImage(new Image(new FileInputStream(new File("src/main/resources/ima/9.jpg"))));
+        //imageView.setImage(new Image(new FileInputStream(new File("src/main/resources/ima/9.jpg"))));
         Label label1=new Label();
         Label label2=new Label();
         Label label3=new Label();

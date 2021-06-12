@@ -12,7 +12,7 @@ import javafx.scene.image.Image;
 /**
  * 我的形象
  *
- * @author Hasee
+ * @author zy
  * @date 2021/06/12
  */
 public class MyImage {

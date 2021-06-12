@@ -28,7 +28,7 @@ import javax.imageio.ImageIO;
 /**
  * 图像文本加密
  *
- * @author Hasee
+ * @author zy
  * @date 2021/06/12
  */
 public class ImageTextEncrypt {

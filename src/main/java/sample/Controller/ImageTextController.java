@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * 图像文本控制器
  *
- * @author Hasee
+ * @author zy
  * @date 2021/06/12
  */
 public class ImageTextController {

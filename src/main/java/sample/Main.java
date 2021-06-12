@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -32,15 +33,18 @@ import javax.imageio.ImageIO;
 
 
 /**
- * Hello World
+ * 主要
+ *
+ * @author zy
+ * @date 2021/06/12
  */
-// 继承javafx.application.Application是JavaFX的开始
 public class Main extends Application {
 
   /**
-   * Stage：就是你能看到的整个软件界面（窗口）
-   * Scene：就是除了窗口最上面有最大、最小化及关闭按钮那一行及窗口边框外其它的区域（场景）
-   * 场景（Scene）是一个窗口（Stage）必不可少的
+   * 开始
+   *
+   * @param stage javafx舞台，用来显示gui
+   * @throws Exception 异常
    */
   @Override
   public void start(Stage stage) throws Exception {
@@ -73,17 +77,19 @@ public class Main extends Application {
     //给tab1传内容
     PicEncryption picEncryption=new PicEncryption();
     tab1.setContent(picEncryption.ImagePane());
-    File file1=new File("src/main/resources/ima/photo1.png");
-    Image photo1=new Image(new FileInputStream(file1));
+    //URL photo1URL=this.getClass().getResource("img/photo1.png");
+    //File file1=new File("/img/photo1.png");
+    Image photo1=new Image("/img/photo1.png");
     ImageView btnphoto1=new ImageView(photo1);
+
     btnphoto1.setFitHeight(40);
     btnphoto1.setFitWidth(40);
     tab1.setGraphic(btnphoto1);
     //给tab2传内容
     ImageTextEncrypt ite=new ImageTextEncrypt();
     tab2.setContent(ite.ImagePane());
-    File file2=new File("src/main/resources/ima/photo3.png");
-    Image photo2=new Image(new FileInputStream(file2));
+    //File file2=new File("/img/photo3.png");
+    Image photo2=new Image("/img/photo3.png");
     ImageView btnphoto2=new ImageView(photo2);
     btnphoto2.setFitHeight(40);
     btnphoto2.setFitWidth(40);
@@ -91,8 +97,8 @@ public class Main extends Application {
     //传给tab4
     ImageFileEncryption imageFileEncryption=new ImageFileEncryption();
     tab4.setContent(imageFileEncryption.ImagePane());
-    File file3=new File("src/main/resources/ima/photo2.png");
-    Image photo3=new Image(new FileInputStream(file3));
+    //File file3=new File("src/main/resources/img/photo2.png");
+    Image photo3=new Image("/img/photo2.png");
     ImageView btnphoto3=new ImageView(photo3);
     btnphoto3.setFitHeight(40);
     btnphoto3.setFitWidth(40);
@@ -100,8 +106,8 @@ public class Main extends Application {
     //传给tab3
     VideoEncryptionPage videoEncryptionPage = new VideoEncryptionPage();
     tab3.setContent(videoEncryptionPage.VideoPane());
-    File file4=new File("src/main/resources/ima/video.png");
-    Image photo4=new Image(new FileInputStream(file4));
+    //File file4=new File("src/main/resources/img/video.png");
+    Image photo4=new Image("/img/video.png");
     ImageView btnphoto4=new ImageView(photo4);
     btnphoto4.setFitHeight(35);
     btnphoto4.setFitWidth(35);
@@ -119,11 +125,23 @@ public class Main extends Application {
     dragImage(imageFileEncryption.getFile(), imageFileEncryption.getIv(),imageFileEncryption);
   }
 
+  /**
+   * Main函数
+   *
+   * @param args args
+   */
   public static void main( String[] args ){
     // 启动软件
     Application.launch(args);
   }
 
+  /**
+   * 拖拽图像
+   *
+   * @param hBox      一种横向的布局容器
+   * @param imageView 图像视图
+   * @param ite       图像文字加密实例
+   */
   public static void dragImage(HBox hBox,ImageView imageView,ImageTextEncrypt ite){
     //下面可以实现拖拽图片进入图片框
     hBox.setOnDragEntered(new EventHandler<DragEvent>() {
@@ -165,6 +183,13 @@ public class Main extends Application {
     });
   }
 
+  /**
+   * 拖拽图像
+   *
+   * @param hBox          h盒子
+   * @param imageView     图像视图
+   * @param picEncryption 图片加密
+   */
   public static void dragImage(HBox hBox,ImageView imageView,PicEncryption picEncryption) {
     //下面可以实现拖拽图片进入图片框
     hBox.setOnDragEntered(new EventHandler<DragEvent>() {
@@ -206,6 +231,13 @@ public class Main extends Application {
     });
   }
 
+  /**
+   * 拖拽图像
+   *
+   * @param hBox      h盒子
+   * @param imageView 图像视图
+   * @param ife       机上娱乐系统
+   */
   public static void dragImage (HBox hBox, ImageView imageView, ImageFileEncryption ife){
     //下面可以实现拖拽图片进入图片框
     hBox.setOnDragEntered(new EventHandler<DragEvent>() {

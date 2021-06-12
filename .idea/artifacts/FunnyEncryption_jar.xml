@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="FunnyEncryption:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/FunnyEncryption_jar</output-path>
+    <root id="archive" name="FEFX.jar">
+      <element id="module-output" name="FEFX" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../jdk/jfoenix-8.0.10.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../jdk/lib/ant-javafx.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../jdk/lib/dt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../jdk/lib/javafx-mx.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../jdk/lib/jconsole.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../jdk/lib/packager.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../jdk/lib/sa-jdi.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../jdk/lib/tools.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
